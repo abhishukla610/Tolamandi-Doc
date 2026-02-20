@@ -1,0 +1,53 @@
+---
+title: User Management
+description: Managing organization owners — search, filter, activate, deactivate
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# User Management
+
+**Route:** `/superadmin/organizations`
+
+The User Management page lists all organization owners registered on the platform. This is the central hub for managing business accounts.
+
+![User Management](/screenshots/app-user-management.png)
+
+## Page Layout
+
+### Header
+- **Title:** User Management
+- **Action Button:** "Onboard Owner" — navigates to the new owner registration form
+
+### Filters
+| Filter | Options | Purpose |
+| --- | --- | --- |
+| **Search** | Text input | Search by name, email, or phone |
+| **Status** | Active / Inactive / All | Filter by account status |
+| **Last Login** | Recent 7d / This Month / Never / All | Identify inactive accounts |
+
+### Table Columns
+
+| Column | Description |
+| --- | --- |
+| **Name** | Owner's full name with phone number subtitle |
+| **Email** | Login email address |
+| **Organizations** | List of all owned orgs with suspended badge if applicable |
+| **Status** | Active (green) or Inactive (gray) badge |
+| **Last Login** | Relative time (e.g., "2 hours ago", "Never") |
+| **Actions** | Dropdown menu |
+
+### Actions Dropdown
+| Action | Description |
+| --- | --- |
+| **View Owner** | Navigate to detailed owner profile page |
+| **Activate / Deactivate** | Toggle the owner's account status |
+
+<Callout title="Deactivation Impact" type="warn">
+  Deactivating an owner does NOT automatically suspend their organizations. Organizations continue to function but the owner cannot log in. Use the Owner Detail page to suspend individual organizations.
+</Callout>
+
+## Counts Display
+The page header shows:
+- Total number of owners
+- Total number of organizations across all owners

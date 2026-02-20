@@ -1,0 +1,47 @@
+---
+title: Produce Management
+description: Managing the global produce catalog — types, icons, activation status
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Produce Management
+
+**Route:** `/superadmin/produce`
+
+This page manages the global catalog of agricultural produce types available across all organizations. When operators record a weighing transaction, they select from this produce list.
+
+## Active Produce Table
+
+| Column | Description |
+| --- | --- |
+| **Icon** | Emoji icon for visual identification |
+| **Name** | Produce name in English |
+| **Name (Gujarati)** | Produce name in Gujarati |
+| **Status** | Active badge |
+| **Actions** | Edit (pencil), Delete (trash) |
+
+**Empty state:** When no produce types exist, shows an icon with "Add your first produce type" message.
+
+## Add / Edit Produce Dialog
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Name | Yes | Produce name in English |
+| Name (Gujarati) | Yes | Produce name in Gujarati |
+| Icon | No | Emoji icon (selected via emoji picker) |
+
+**Validation:**
+- Duplicate name detection (case-insensitive, active produce only)
+- Both English and Gujarati names are required
+
+## Deactivation & Reactivation
+
+- **Delete** = Soft delete (sets `is_active = false`). Confirmation dialog is shown.
+- Deactivated produce types appear in a collapsible **"Inactive Produce"** section at the bottom.
+- Each inactive item has a **Reactivate** button (refresh icon) to restore it.
+- The inactive section is only shown when inactive items exist.
+
+<Callout title="Shared Catalog" type="info">
+  Produce types are **platform-wide** — all organizations share the same produce list. Changes here affect every organization's transaction forms immediately.
+</Callout>

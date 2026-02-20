@@ -1,0 +1,60 @@
+---
+title: Platform Settings
+description: Global platform configuration — branding, email, security settings
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Platform Settings
+
+**Route:** `/superadmin/settings`
+
+This page manages global platform configuration. Settings are organized by category and edited inline with type-aware input fields.
+
+![Platform Settings](/screenshots/app-platform-settings.png)
+
+## Setting Categories
+
+| Category | Icon | Description |
+| --- | --- | --- |
+| **General** | Settings | Core platform settings (name, tagline, etc.) |
+| **Email** | Mail | Email configuration for notifications |
+| **Branding** | Globe | Visual branding and customization |
+| **Security** | Shield | Security-related configuration |
+
+## Settings Table (per category)
+
+| Column | Description |
+| --- | --- |
+| **Key** | Setting identifier |
+| **Value** | Current value (formatted with code styling) |
+| **Description** | Human-readable explanation |
+| **Visibility** | Public or Private badge |
+| **Actions** | Edit button (becomes Save/Cancel when editing) |
+
+## Type-Aware Editing
+
+The edit input adapts based on the value type:
+
+| Value Type | Input Control |
+| --- | --- |
+| Boolean | Toggle switch |
+| Number | Number input |
+| String | Text input |
+| Object (JSON) | Textarea with JSON validation |
+
+**Validation:**
+- JSON values are parsed and validated before saving
+- Number values are validated as numeric
+- Changes are saved inline with immediate feedback
+
+## Key Settings
+
+| Setting | Category | Description |
+| --- | --- | --- |
+| `platform_name` | General | Name displayed in sidebar, login, receipts |
+| `platform_tagline` | General | Tagline shown on login page |
+
+<Callout title="Platform Branding" type="info">
+  The `platform_name` and `platform_tagline` settings are consumed by the `PlatformProvider` context. Changes here update the branding across the entire application — login page, sidebars, receipts, and mobile interface.
+</Callout>

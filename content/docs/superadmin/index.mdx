@@ -1,0 +1,44 @@
+---
+title: Super Admin Overview
+description: Platform administration guide for TolaMandi super administrators
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Super Admin Guide
+
+The **Super Admin** is the platform administrator with full access to manage all organizations, users, subscriptions, and platform configuration. There is typically one super admin account that oversees the entire TolaMandi platform.
+
+<Callout title="Access" type="info">
+  Super Admin logs in at `/login` with email and password. After authentication, they are redirected to `/superadmin/dashboard`.
+</Callout>
+
+## Navigation
+
+The super admin interface has a dedicated dark-themed sidebar with **7 main sections**:
+
+<Cards>
+  <Card title="Dashboard" href="/docs/superadmin/dashboard" description="Platform-wide statistics — organizations, users, operators, subscription distribution" />
+  <Card title="User Management" href="/docs/superadmin/user-management" description="View and manage all organization owners, search, filter, activate/deactivate" />
+  <Card title="Onboard Owner" href="/docs/superadmin/onboard-owner" description="Register new business owners with their first organization and subscription plan" />
+  <Card title="Owner Detail" href="/docs/superadmin/owner-detail" description="Comprehensive owner management — profile, orgs, operators, agents, activity, subscriptions" />
+  <Card title="Subscriptions" href="/docs/superadmin/subscriptions" description="View and edit subscription plans — pricing, limits, features, plan comparison" />
+  <Card title="Produce" href="/docs/superadmin/produce" description="Manage the global produce catalog shared across all organizations" />
+  <Card title="APMC Groups" href="/docs/superadmin/apmc-groups" description="Create and manage APMC market groups for cross-org agent sharing" />
+  <Card title="Platform Settings" href="/docs/superadmin/platform-settings" description="Configure global platform settings — branding, email, security" />
+  <Card title="Audit Logs" href="/docs/superadmin/audit-logs" description="Platform-wide activity log for security monitoring and compliance" />
+</Cards>
+
+## Key Capabilities
+
+| Capability | Description |
+| --- | --- |
+| **Organization Lifecycle** | Onboard new owners, create/suspend/reactivate organizations |
+| **Subscription Management** | Edit plans, manage operator add-ons, enforce limits |
+| **User Control** | Activate/deactivate owners, reset passwords, view activity |
+| **Platform Configuration** | Edit platform name, tagline, email settings, security options |
+| **Produce Catalog** | Add/edit/deactivate produce types with emoji icons |
+| **APMC Groups** | Create market groups, assign owners, enable agent sharing |
+| **Audit Trail** | View last 100 platform activities with search and filters |
+| **Impersonation** | Enter any organization for troubleshooting |

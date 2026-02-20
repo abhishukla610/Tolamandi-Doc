@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "title": "Organization Owner",
+  "description": "Business owner operational guide",
+  "pages": [
+    "index",
+    "---Daily Operations---",
+    "dashboard",
+    "transactions",
+    "---Management---",
+    "commission-agents",
+    "operators",
+    "---Settings & Config---",
+    "organization-settings",
+    "billing",
+    "user-settings",
+    "---Features---",
+    "org-switcher",
+    "notifications",
+    "i18n"
+  ]
+}

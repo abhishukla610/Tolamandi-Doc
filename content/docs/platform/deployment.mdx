@@ -1,0 +1,61 @@
+---
+title: Deployment
+description: Vercel hosting, CI/CD pipeline, and environment configuration
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Deployment
+
+TolaMandi is deployed on **Vercel** with automatic CI/CD from GitHub.
+
+## Deployment Pipeline
+
+<Steps>
+  <Step>
+    ### Code Push
+    Developer pushes code to `main` branch on `github.com/Abhiigg/tolamandi-app`.
+  </Step>
+  <Step>
+    ### Vercel Auto-Deploy
+    Vercel detects the push and automatically triggers a build using Next.js build pipeline with Turbopack.
+  </Step>
+  <Step>
+    ### Build & Optimize
+    Next.js compiles, tree-shakes, and optimizes the application. Static pages are pre-rendered, dynamic routes are configured for edge/serverless.
+  </Step>
+  <Step>
+    ### Deploy to Edge
+    The built application is deployed to Vercel's global edge network, available at `tolamandi-fresh.vercel.app`.
+  </Step>
+</Steps>
+
+## Production URLs
+
+| Service | URL / Identifier |
+| --- | --- |
+| **Application** | `tolamandi-fresh.vercel.app` |
+| **GitHub Repository** | `github.com/Abhiigg/tolamandi-app` |
+| **Supabase Project** | `czjrrypzshezcosigaxe` |
+| **Supabase Dashboard** | `supabase.com/dashboard/project/czjrrypzshezcosigaxe` |
+
+## Environment Variables
+
+The application requires the following environment variables (set in Vercel dashboard):
+
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous (public) API key |
+
+<Callout title="Security" type="info">
+  Only the `NEXT_PUBLIC_` prefixed variables are exposed to the browser. The Supabase anon key is safe to expose as RLS policies enforce all access control.
+</Callout>
+
+## Branch Strategy
+
+| Branch | Purpose |
+| --- | --- |
+| `main` | Production — auto-deploys to Vercel |
+| Feature branches | Development — preview deployments on Vercel |

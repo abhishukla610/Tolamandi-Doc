@@ -1,0 +1,46 @@
+---
+title: Platform Overview
+description: TolaMandi — APMC Weighing & Trading Management System
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# TolaMandi Platform
+
+**TolaMandi** is a multi-tenant SaaS platform built for Agricultural Produce Market Committee (APMC) yards across Gujarat, India. It digitizes the weighing and trading process between commission agents, farmers, and market yard operators.
+
+<Callout title="Production Environment" type="info">
+  The platform is live at **tolamandi-fresh.vercel.app** and serves multiple organizations simultaneously with full data isolation.
+</Callout>
+
+## What TolaMandi Does
+
+| Capability | Description |
+| --- | --- |
+| **Weighing Management** | Operators record produce weights using a mobile-first wizard — bag type, count, individual weights, net weight calculation |
+| **Transaction Tracking** | Every weighment generates a receipt with commission agent details, produce info, rate, and amount |
+| **Multi-Organization** | A single owner can manage multiple market yard organizations from one account |
+| **Commission Agent Registry** | Maintain a database of traders with auto-generated codes, phone, GSTIN, and taluka-based cross-org discovery |
+| **Subscription Management** | Tiered plans (Basic, Pro, Enterprise) with operator add-on capacity |
+| **APMC Group Collaboration** | Owners in the same physical market can share and discover commission agents |
+| **Bilingual Support** | Full English and Gujarati (gu) interface via i18next |
+
+## User Roles
+
+<Cards>
+  <Card title="Super Admin" description="Platform administrator who manages all organizations, subscription plans, produce catalog, APMC groups, and platform-wide settings." />
+  <Card title="Organization Owner" description="Business owner who runs one or more market yard organizations. Manages operators, commission agents, transactions, and billing." />
+  <Card title="Buyer Admin" description="Administrative user within an organization. Same access as owner except cannot manage organization settings or billing." />
+  <Card title="Operator" description="Field staff operating weighing machines. Uses a mobile-first interface to record transactions via a step-by-step wizard." />
+</Cards>
+
+## Documentation Structure
+
+Use the **sidebar dropdown** at the top to switch between sections:
+
+| Section | Audience | Contents |
+| --- | --- | --- |
+| **Platform Technical** | Developers / Technical Reviewers | Architecture, database schema, authentication, deployment |
+| **Super Admin** | Platform Administrators | Every screen and feature available to the super admin role |
+| **Organization Owner** | Business Owners / Admins | Daily operations, agent management, billing, settings |

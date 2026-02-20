@@ -1,0 +1,83 @@
+---
+title: Billing
+description: Subscription plan details, usage metrics, add-ons, and plan comparison
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Billing
+
+**Route:** `/billing`
+
+The Billing page provides transparency into your subscription plan, current usage, and any add-on services purchased.
+
+![Billing Page](/screenshots/app-billing.png)
+
+<Callout title="Access Control" type="info">
+  This page is accessible to **Owner** role only.
+</Callout>
+
+## Current Plan Card
+
+Displays your active subscription:
+
+| Field | Description |
+| --- | --- |
+| Plan Name | e.g., Basic (Quarterly), Pro (Six Month), Enterprise (Yearly) |
+| Description | Plan description |
+| Monthly Price | Price in ₹ per month |
+| Status | Active or Inactive badge |
+| Start Date | When the subscription started |
+| Features | Checklist of enabled/disabled features |
+
+## Operator Add-on Info
+
+If you have purchased additional operator slots:
+
+| Field | Description |
+| --- | --- |
+| Extra Operators | Number of additional operator slots |
+| Price per Operator | ₹200/month per extra operator |
+| Effective Limit | Base plan limit + add-on quantity |
+
+Example: If your plan includes 5 operators and you have 3 add-on slots, your effective limit is 8 operators.
+
+## Usage Summary Cards
+
+Four progress cards showing current usage:
+
+| Card | Description |
+| --- | --- |
+| **Organizations** | Active orgs / Max allowed (with progress bar) |
+| **Total Users** | User count across all organizations |
+| **Total Operators** | Operator count (shows add-on if applicable) |
+| **Monthly Transactions** | Current month count / Max allowed |
+
+## Per-Organization Usage Table
+
+Detailed breakdown for each organization:
+
+| Column | Description |
+| --- | --- |
+| Organization | Org name |
+| Users | Current / Max |
+| Operators | Current / Max (including add-on) |
+| Transactions | This month / Max |
+| Status | Active or Inactive badge |
+
+## Plan Comparison Table
+
+Side-by-side view of all available plans:
+
+| Column | Description |
+| --- | --- |
+| Plan | Plan name (current plan highlighted) |
+| Organizations | Max orgs allowed |
+| Users/Org | Max users per organization |
+| Operators/Org | Max operators per organization |
+| Txns/Org/Month | Max monthly transactions |
+| Price | Monthly price |
+
+<Callout title="Plan Changes" type="info">
+  Plan changes and operator add-on purchases are managed by the platform super admin from the Owner Detail page. Contact your administrator to upgrade or modify your subscription.
+</Callout>

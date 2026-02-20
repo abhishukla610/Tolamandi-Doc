@@ -1,0 +1,90 @@
+---
+title: Operators
+description: Manage field operators — create, edit, reset PINs, activate/deactivate
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Operators
+
+**Route:** `/operators`
+
+Operators are the field staff who use weighing machines and record transactions at the market yard. They use the mobile-first interface to create weighing entries via a step-by-step wizard.
+
+![Operators](/screenshots/app-operators.png)
+
+<Callout title="Access Control" type="warn">
+  This page is restricted to **Owner** and **Buyer Admin** roles. Other roles see a "You don't have access" message with a shield icon.
+</Callout>
+
+## Operator Table
+
+A paginated table (10 per page) with search and status filter:
+
+| Column | Description |
+| --- | --- |
+| **Full Name** | Operator display name |
+| **Phone** | Contact number |
+| **Email** | Constructed email (internal) |
+| **Status** | Active / Inactive / Suspended badge |
+| **Created Date** | When the operator was added |
+| **Actions** | Dropdown: Edit, Reset PIN, Deactivate/Reactivate |
+
+### Filters
+| Filter | Options |
+| --- | --- |
+| **Search** | By name or phone |
+| **Status** | Active Only / Inactive Only / All |
+
+## Create Operator Dialog
+
+<Tabs items={['Create Mode', 'Edit Mode']}>
+  <Tab value="Create Mode">
+    | Field | Required | Validation |
+    | --- | --- | --- |
+    | Full Name | Yes | Cannot be empty |
+    | Phone | No | Phone number |
+    | PIN | Yes | Exactly 4 digits |
+    | Confirm PIN | Yes | Must match PIN |
+
+    The PIN is used by the operator to log in on the mobile interface.
+  </Tab>
+  <Tab value="Edit Mode">
+    | Field | Required | Notes |
+    | --- | --- | --- |
+    | Full Name | Yes | Editable |
+    | Phone | No | Editable |
+
+    PIN is **not shown** in edit mode. Use the separate "Reset PIN" dialog to change the PIN.
+  </Tab>
+</Tabs>
+
+## Reset PIN Dialog
+
+A separate dialog for resetting an operator's login PIN:
+
+| Field | Required | Validation |
+| --- | --- | --- |
+| New PIN | Yes | Exactly 4 digits |
+| Confirm PIN | Yes | Must match new PIN |
+
+The dialog title shows the operator's name for verification.
+
+<Callout title="Operator Authentication" type="info">
+  Operators authenticate using phone + 4-digit PIN. Under the hood, this uses Supabase email auth with a constructed email (`{phone}@operator.tolamandi.local`) and padded password (`PIN_{pin}_SECURE`). PIN resets always go through the Supabase Auth API.
+</Callout>
+
+## Operator Lifecycle
+
+| Action | Effect |
+| --- | --- |
+| **Create** | New operator with active status, can log in immediately |
+| **Edit** | Update name/phone, no disruption |
+| **Reset PIN** | Operator must use new PIN on next login |
+| **Deactivate** | Operator cannot log in, shown as inactive |
+| **Reactivate** | Restores login access, status returns to active |
+
+<Callout title="Cross-Org Operators" type="info">
+  Operators are linked to the owner (not individual organizations). They can operate across all of the owner's organizations. The org selector in the mobile wizard lets operators choose which organization a transaction belongs to.
+</Callout>

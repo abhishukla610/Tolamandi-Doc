@@ -1,0 +1,172 @@
+---
+title: Application Architecture
+description: System architecture, route groups, data flow, and component organization
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+# Application Architecture
+
+TolaMandi follows a modern full-stack architecture built on **Next.js App Router** with **Supabase** as the backend-as-a-service layer.
+
+## High-Level Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                      Vercel Edge                        │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              Next.js 16 (App Router)              │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌───────────────────┐ │  │
+│  │  │ (auth)   │ │(dashboard)│ │   (superadmin)    │ │  │
+│  │  │ Login    │ │ Owner UI │ │   Platform Admin  │ │  │
+│  │  └──────────┘ └──────────┘ └───────────────────┘ │  │
+│  │  ┌──────────┐                                     │  │
+│  │  │ (mobile) │                                     │  │
+│  │  │ Operator │                                     │  │
+│  │  └──────────┘                                     │  │
+│  └───────────────────────────────────────────────────┘  │
+└────────────────────┬────────────────────────────────────┘
+                     │ Supabase JS Client
+┌────────────────────▼────────────────────────────────────┐
+│                   Supabase Cloud                        │
+│  ┌──────────┐ ┌────────────┐ ┌───────────────────────┐ │
+│  │ Auth      │ │ PostgreSQL │ │ Realtime              │ │
+│  │ (GoTrue)  │ │ (RLS)      │ │ (WebSocket)           │ │
+│  └──────────┘ └────────────┘ └───────────────────────┘ │
+│  ┌──────────┐ ┌────────────┐                            │
+│  │ Storage   │ │ Edge Funcs │                            │
+│  └──────────┘ └────────────┘                            │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Route Groups
+
+The application uses Next.js **route groups** to separate concerns by role:
+
+<Tabs items={['(auth)', '(dashboard)', '(superadmin)', '(mobile)']}>
+  <Tab value="(auth)">
+    **Authentication Routes** — `/login`
+
+    Single login page shared by all roles. After authentication, users are redirected based on their role:
+    - Super Admin → `/superadmin/dashboard`
+    - Owner / Buyer Admin → `/dashboard`
+    - Operator → `/mobile/dashboard`
+  </Tab>
+  <Tab value="(dashboard)">
+    **Owner & Admin Dashboard** — `/dashboard/*`
+
+    Full desktop interface for organization owners and buyer admins. Includes:
+    - Dashboard with daily stats
+    - Transactions table with filters and export
+    - Masters (commission agents) management
+    - Operators management
+    - Organization settings
+    - Billing and subscription info
+    - User settings
+  </Tab>
+  <Tab value="(superadmin)">
+    **Platform Administration** — `/superadmin/*`
+
+    Dedicated interface for the platform super admin. Manages:
+    - All organizations and owners
+    - Subscription plans
+    - Produce catalog
+    - APMC groups
+    - Platform settings
+    - Audit logs
+  </Tab>
+  <Tab value="(mobile)">
+    **Mobile Operator Interface** — `/mobile/*`
+
+    Mobile-first interface for field operators. Features:
+    - Today's transaction dashboard
+    - 5-step weighing wizard
+    - Past entries with search
+    - Operator profile
+  </Tab>
+</Tabs>
+
+## Data Flow Pattern
+
+<Steps>
+  <Step>
+    ### Database Layer (Supabase PostgreSQL)
+    All data stored in PostgreSQL with snake_case column naming. Row-Level Security (RLS) policies enforce multi-tenant isolation. Every query filters by `organization_id`.
+  </Step>
+  <Step>
+    ### Service Layer (`lib/supabase/services.ts`)
+    Business logic functions that query Supabase, handle validation, and return typed results. Contains 50+ exported functions covering all CRUD operations.
+  </Step>
+  <Step>
+    ### Data Mapping Layer
+    Mapper functions (`mapDbTransactionToApp()`, `mapDbAgentToApp()`, etc.) convert database snake_case responses to application camelCase TypeScript interfaces.
+  </Step>
+  <Step>
+    ### Hooks Layer (`lib/supabase/hooks.ts`)
+    React hooks that wrap service calls with state management, loading indicators, and real-time subscriptions. Example: `useTodayProduceSummary()`, `useRealtimeTransactions()`.
+  </Step>
+  <Step>
+    ### Component Layer
+    Feature-organized React components that consume hooks and render the UI. Components are organized by domain: `components/transactions/`, `components/commission-agents/`, `components/operators/`.
+  </Step>
+</Steps>
+
+## Component Organization
+
+```
+components/
+├── auth/
+│   └── auth-guard.tsx            # Role-based route protection
+├── commission-agents/
+│   ├── commission-agent-dialog.tsx  # Create/Edit agent form
+│   ├── commission-agent-table.tsx   # Paginated agent list
+│   └── apmc-pool-table.tsx          # Cross-org agent pool
+├── layout/
+│   ├── sidebar.tsx               # Owner dashboard navigation
+│   ├── header.tsx                # Top bar with org switcher
+│   ├── superadmin-sidebar.tsx    # Platform admin navigation
+│   ├── superadmin-header.tsx     # Platform admin top bar
+│   ├── mobile-nav.tsx            # Operator bottom navigation
+│   └── impersonation-banner.tsx  # Superadmin impersonation indicator
+├── notifications/
+│   ├── notification-bell.tsx     # Bell icon with unread count
+│   ├── notification-panel.tsx    # Notification list popover
+│   └── notification-item.tsx     # Individual notification row
+├── operators/
+│   ├── operator-dialog.tsx       # Create/Edit operator form
+│   ├── operator-table.tsx        # Paginated operator list
+│   └── reset-pin-dialog.tsx      # PIN reset modal
+├── org-switcher/
+│   ├── org-switcher.tsx          # Multi-org dropdown
+│   └── create-org-dialog.tsx     # New organization form
+├── settings/
+│   ├── user-profile-settings.tsx # Profile editing
+│   ├── produce-types-manager.tsx # Produce CRUD
+│   ├── quality-grades-manager.tsx # Grade CRUD
+│   ├── receipt-settings-form.tsx # Receipt customization
+│   ├── notification-settings.tsx # Notification preferences
+│   └── org-branding-form.tsx     # Organization branding
+├── superadmin/
+│   └── edit-plan-dialog.tsx      # Subscription plan editor
+├── transactions/
+│   ├── transaction-detail-dialog.tsx # Receipt preview (printable)
+│   ├── edit-transaction-dialog.tsx   # Transaction editor
+│   └── transaction-filters.tsx       # Search and filter panel
+└── ui/                           # 21 shadcn/ui primitives
+    ├── button.tsx, card.tsx, dialog.tsx, table.tsx, tabs.tsx ...
+```
+
+## Context Providers
+
+| Provider | File | Purpose |
+| --- | --- | --- |
+| `AuthProvider` | `contexts/auth-context.tsx` | User state, roles, org switching, impersonation |
+| `PlatformProvider` | `contexts/platform-context.tsx` | Dynamic platform name and tagline |
+| `I18nProvider` | `components/i18n-provider.tsx` | i18next with 9 namespaces (en + gu) |
+| `RootProvider` | Next.js root layout | Wraps all the above providers |
+
+<Callout title="Multi-Tenant Isolation" type="warn">
+  Every database query is scoped to the user's `organization_id`. Supabase RLS policies enforce this at the database level, providing defense-in-depth even if application logic has bugs.
+</Callout>

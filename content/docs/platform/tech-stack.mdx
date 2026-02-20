@@ -1,0 +1,93 @@
+---
+title: Technology Stack
+description: Frontend, backend, and infrastructure technologies powering TolaMandi
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Technology Stack
+
+## Core Technologies
+
+| Layer | Technology | Version | Purpose |
+| --- | --- | --- | --- |
+| **Framework** | Next.js | 16 | React full-stack framework with App Router |
+| **Language** | TypeScript | 5.x | Type-safe JavaScript |
+| **Backend** | Supabase | Cloud | PostgreSQL, Auth, Realtime, Storage |
+| **Styling** | Tailwind CSS | 4.x | Utility-first CSS framework |
+| **UI Library** | shadcn/ui | Latest | 21 accessible component primitives |
+| **Hosting** | Vercel | Edge | Auto-deployment from GitHub |
+| **i18n** | i18next | Latest | Internationalization (English + Gujarati) |
+
+## Frontend Stack
+
+<Tabs items={['Next.js 16', 'Tailwind CSS', 'shadcn/ui', 'i18next']}>
+  <Tab value="Next.js 16">
+    - **App Router** with route groups for role separation
+    - **Turbopack** for fast development builds
+    - **Server Components** where applicable
+    - **Client Components** for interactive features (`"use client"`)
+    - File-based routing: `app/(dashboard)/`, `app/(superadmin)/`, `app/(mobile)/`, `app/(auth)/`
+  </Tab>
+  <Tab value="Tailwind CSS">
+    - Utility-first styling across all components
+    - Responsive design (mobile-first for operator interface)
+    - Custom color tokens via CSS variables for theme support
+    - Dark mode support through Fumadocs-style theming
+  </Tab>
+  <Tab value="shadcn/ui">
+    21 component primitives installed and customized:
+
+    `Button` · `Card` · `Dialog` · `Table` · `Tabs` · `Badge` · `Input` · `Label` · `Select` · `Command` · `Popover` · `Avatar` · `Separator` · `Skeleton` · `Switch` · `Textarea` · `Progress` · `DropdownMenu` · `AlertDialog` · `DataTable` · `EmojiPicker`
+  </Tab>
+  <Tab value="i18next">
+    Full bilingual support with **9 namespaces**:
+
+    | Namespace | Scope |
+    | --- | --- |
+    | `common` | Shared UI strings |
+    | `dashboard` | Dashboard page |
+    | `nav` | Navigation items |
+    | `transactions` | Transactions page |
+    | `settings` | Settings pages |
+    | `operators` | Operators page |
+    | `masters` | Commission agents page |
+    | `auth` | Login page |
+    | `mobile` | Mobile operator pages |
+
+    Translation files: `public/locales/en/*.json` and `public/locales/gu/*.json` (18 files total)
+  </Tab>
+</Tabs>
+
+## Backend Stack (Supabase)
+
+| Feature | Usage |
+| --- | --- |
+| **PostgreSQL** | Primary database with 15+ tables, views, enums, and indexes |
+| **Row-Level Security** | All tables protected with RLS policies filtering by `organization_id` |
+| **Auth (GoTrue)** | Email/password for admins, email-based auth for operators |
+| **Realtime** | WebSocket subscriptions for live transaction updates and notifications |
+| **RPC Functions** | SECURITY DEFINER functions for cross-org operations (e.g., `get_apmc_group_commission_agents`) |
+| **Edge Functions** | Custom serverless functions for specialized operations |
+
+<Callout title="Security Definer Functions" type="warn">
+  All SECURITY DEFINER functions include `SET search_path = 'public'` to prevent schema hijack attacks. This was verified through Supabase security advisors.
+</Callout>
+
+## Infrastructure
+
+| Service | Details |
+| --- | --- |
+| **Vercel** | Auto-deploys from `main` branch of `Abhiigg/tolamandi-app` |
+| **Domain** | `tolamandi-fresh.vercel.app` |
+| **Supabase Project** | Project ID: `czjrrypzshezcosigaxe` |
+| **CI/CD** | GitHub → Vercel auto-deploy on push to main |
+
+## Testing
+
+| Tool | Coverage |
+| --- | --- |
+| **Vitest** | 92 unit tests across 3 test suites |
+| **Playwright** | End-to-end testing for critical flows |
+| **Test Suites** | Subscription add-ons (14), Dashboard computations (28), Taluka features (25) |

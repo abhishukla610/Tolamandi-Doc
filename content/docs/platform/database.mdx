@@ -1,0 +1,152 @@
+---
+title: Database Schema
+description: PostgreSQL tables, relationships, enums, and data model
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Database Schema
+
+TolaMandi uses **Supabase PostgreSQL** with a normalized schema. All tables use `uuid` primary keys with auto-generation and enforce multi-tenant isolation through `organization_id` foreign keys.
+
+## Core Tables
+
+<Tabs items={['Organizations', 'Users', 'Transactions', 'Commission Agents', 'Subscriptions']}>
+  <Tab value="Organizations">
+    ### `organizations`
+    | Column | Type | Description |
+    | --- | --- | --- |
+    | `id` | uuid (PK) | Auto-generated |
+    | `name` | text | Organization name (English) |
+    | `name_gu` | text | Organization name (Gujarati) |
+    | `email` | text | Contact email |
+    | `phone` | text | Contact phone |
+    | `address` | text | Physical address |
+    | `gstin` | text | GST registration number |
+    | `owner_id` | uuid (FK → users) | Organization owner |
+    | `is_active` | boolean | Active/Suspended status |
+    | `receipt_settings` | jsonb | Custom receipt header/footer |
+    | `created_at` | timestamptz | Creation timestamp |
+    | `updated_at` | timestamptz | Last update timestamp |
+  </Tab>
+  <Tab value="Users">
+    ### `users`
+    | Column | Type | Description |
+    | --- | --- | --- |
+    | `id` | uuid (PK) | Maps to `auth.users.id` |
+    | `full_name` | text | Display name |
+    | `email` | text | Login email |
+    | `phone` | text | Contact phone |
+    | `role` | user_role enum | `superadmin`, `owner`, `buyer_admin`, `operator` |
+    | `organization_id` | uuid (FK) | Primary organization |
+    | `owner_id` | uuid (FK → users) | Owner who created this user |
+    | `apmc_group_id` | uuid (FK) | APMC market group assignment |
+    | `is_active` | boolean | Account status |
+    | `last_login` | timestamptz | Last login time |
+    | `created_at` | timestamptz | Creation timestamp |
+  </Tab>
+  <Tab value="Transactions">
+    ### `transactions`
+    | Column | Type | Description |
+    | --- | --- | --- |
+    | `id` | uuid (PK) | Auto-generated |
+    | `receipt_number` | text | Unique receipt identifier |
+    | `organization_id` | uuid (FK) | Owning organization |
+    | `commission_agent_id` | uuid (FK) | Trading agent |
+    | `operator_id` | uuid (FK) | Recording operator |
+    | `produce_type_id` | uuid (FK) | Produce being weighed |
+    | `quality_grade_id` | uuid (FK) | Quality classification |
+    | `bag_type` | bag_type enum | Bag size (10kg–100kg) |
+    | `bag_count` | integer | Number of bags |
+    | `bag_weights` | jsonb | Individual bag weights array |
+    | `gross_weight` | decimal | Total weight before tare |
+    | `tare_weight` | decimal | Bag weight deduction |
+    | `net_weight` | decimal | Final billable weight |
+    | `bachku_weight` | decimal | Additional weight field |
+    | `rate_per_20kg` | decimal | Price per 20kg unit |
+    | `total_amount` | decimal | Calculated total |
+    | `commission_rate` | decimal | Agent commission % |
+    | `status` | text | Transaction status |
+    | `notes` | text | Optional notes |
+    | `created_at` | timestamptz | Weighment timestamp |
+  </Tab>
+  <Tab value="Commission Agents">
+    ### `commission_agents`
+    | Column | Type | Description |
+    | --- | --- | --- |
+    | `id` | uuid (PK) | Auto-generated |
+    | `code` | text | Auto-generated code (SA001, SA002...) |
+    | `name` | text | Agent full name |
+    | `phone` | text | Contact phone |
+    | `email` | text | Contact email |
+    | `gst_number` | text | GST registration |
+    | `address` | text | Address |
+    | `taluka` | text | Market area for cross-org discovery |
+    | `commission_rate` | decimal | Default commission % |
+    | `organization_id` | uuid (FK) | Owning organization |
+    | `is_active` | boolean | Active status |
+    | `created_at` | timestamptz | Creation timestamp |
+
+    **Indexes:** Partial indexes on `(phone, organization_id) WHERE is_active = true` and `(taluka, organization_id) WHERE is_active = true`
+  </Tab>
+  <Tab value="Subscriptions">
+    ### `subscription_plans`
+    | Column | Type | Description |
+    | --- | --- | --- |
+    | `id` | uuid (PK) | Auto-generated |
+    | `code` | text | Plan code: `basic`, `pro`, `enterprise` |
+    | `name` | text | Display name |
+    | `description` | text | Plan description |
+    | `max_organizations` | integer | Org limit |
+    | `max_users` | integer | Users per org limit |
+    | `max_operators` | integer | Operators per org (null = unlimited) |
+    | `max_transactions_per_month` | integer | Monthly transaction cap |
+    | `monthly_price` | decimal | Price per month |
+    | `features` | jsonb | Feature flags |
+    | `is_active` | boolean | Plan availability |
+
+    ### `user_subscriptions`
+    Links users to plans with start/end dates and status.
+
+    ### `subscription_add_ons`
+    Extra operator slots: `extra_operators` type at ₹200/operator/month.
+  </Tab>
+</Tabs>
+
+## Additional Tables
+
+| Table | Purpose |
+| --- | --- |
+| `produce_types` | Global produce catalog (managed by super admin) |
+| `quality_grades` | Quality grades per produce type |
+| `apmc_groups` | APMC market groups for cross-org collaboration |
+| `platform_settings` | Key-value platform configuration |
+| `audit_logs` | Activity tracking for all operations |
+| `notifications` | User notification records |
+| `notification_preferences` | Per-user notification toggles |
+
+## Enums
+
+| Enum | Values |
+| --- | --- |
+| `user_role` | `superadmin`, `owner`, `buyer_admin`, `operator` |
+| `bag_type` | `10kg`, `20kg`, `25kg`, `30kg`, `40kg`, `50kg`, `75kg`, `100kg` |
+
+## Data Mapping Convention
+
+Database uses **snake_case**. Application uses **camelCase**. Mapper functions handle conversion:
+
+```typescript
+// Example: mapDbTransactionToApp()
+{
+  receipt_number  →  receiptNumber
+  commission_agent_id  →  commissionAgentId
+  net_weight  →  netWeight
+  rate_per_20kg  →  ratePer20kg
+}
+```
+
+<Callout title="UUID Handling" type="warn">
+  Supabase UUID columns reject empty strings `""`. Always use `null` for optional foreign key fields, never empty string.
+</Callout>

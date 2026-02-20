@@ -1,0 +1,51 @@
+---
+title: Dashboard
+description: Platform overview with key metrics and quick actions
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Super Admin Dashboard
+
+**Route:** `/superadmin/dashboard`
+
+The dashboard provides a bird's-eye view of the entire platform with key metrics, subscription distribution, and recent activity.
+
+![Super Admin Dashboard](/screenshots/app-superadmin-dashboard.png)
+
+## Stat Cards
+
+Four summary cards displayed at the top:
+
+| Card | Icon | Description |
+| --- | --- | --- |
+| **Total Organizations** | Building2 | Count of all registered organizations with active count |
+| **Admin Users** | Users | Total owners and buyer admins on the platform |
+| **Operators** | Activity | Total field operators across all organizations |
+| **Subscriptions** | CreditCard | Active subscription count |
+
+## Subscription Distribution
+
+A summary card showing the breakdown of subscription plans across all users:
+- Shows each plan name with subscriber count
+- Helps identify the most popular tier
+- Useful for business decision-making on pricing
+
+## Recent Organizations
+
+Displays the **5 most recently created** organizations:
+- Organization name
+- Owner name
+- Status badge (Active/Suspended)
+- Creation date
+
+## Quick Actions
+
+Three shortcut links for common tasks:
+1. **Manage Users** → User Management page
+2. **Manage Produce** → Produce page
+3. **View Settings** → Platform Settings page
+
+<Callout title="Real-time Data" type="info">
+  Dashboard data is fetched fresh on each page load. It queries `organizations`, `users`, and `user_subscriptions` tables directly.
+</Callout>

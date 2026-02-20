@@ -1,0 +1,50 @@
+---
+title: Organization Settings
+description: Edit organization profile, receipt customization, produce types, and quality grades
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Organization Settings
+
+**Route:** `/organization`
+
+![Organization Settings](/screenshots/app-org-settings.png)
+
+<Callout title="Access Control" type="warn">
+  This page is restricted to **Owner** role only. Buyer admins see a "You don't have access" message.
+</Callout>
+
+## Tabs
+
+<Tabs items={['Profile', 'Receipt']}>
+  <Tab value="Profile">
+    Edit your organization's business information:
+
+    | Field | Required | Description |
+    | --- | --- | --- |
+    | Organization Name | Yes | Business name in English |
+    | Organization Name (Gujarati) | No | Business name in Gujarati |
+    | Email | No | Contact email |
+    | Phone | No | Contact phone |
+    | Address | No | Physical address (textarea) |
+    | GSTIN | No | GST registration number (15 characters) |
+
+    Changes are saved when you click the **Save** button.
+  </Tab>
+  <Tab value="Receipt">
+    Customize what appears on printed weighing receipts:
+
+    | Field | Description |
+    | --- | --- |
+    | Receipt Header | Custom text printed at the top of every receipt |
+    | Receipt Footer | Custom text printed at the bottom of every receipt |
+
+    These fields are optional. If left empty, a default header/footer is used based on the organization name.
+  </Tab>
+</Tabs>
+
+## Loading States
+
+While data is loading, skeleton loaders are shown for each card to maintain layout stability.

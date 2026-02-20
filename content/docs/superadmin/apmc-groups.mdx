@@ -1,0 +1,79 @@
+---
+title: APMC Groups
+description: Market group management for cross-organization agent sharing
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# APMC Groups
+
+**Route:** `/superadmin/apmc-groups`
+
+APMC (Agricultural Produce Market Committee) Groups enable owners operating in the same physical market to discover and share commission agent information. When owners are in the same group, they can see agents from other organizations and copy them to their own.
+
+## How APMC Groups Work
+
+<Steps>
+  <Step>
+    ### Super Admin creates a group
+    Creates a named group representing a physical APMC market (e.g., "Rajkot APMC", "Gondal APMC").
+  </Step>
+  <Step>
+    ### Owners are assigned to groups
+    Via the Owner Detail page, the super admin assigns owners to their respective APMC group.
+  </Step>
+  <Step>
+    ### Shared agent pool becomes available
+    Owners in the same group can see commission agents from other group members on the Masters page.
+  </Step>
+  <Step>
+    ### Owners "Take" agents from the pool
+    The "Take" button copies agent details (name, phone, taluka, GST) to the owner's organization as a new agent with an auto-generated code.
+  </Step>
+</Steps>
+
+## Groups Table
+
+| Column | Description |
+| --- | --- |
+| **Expand** | Chevron icon to expand/collapse member list |
+| **Name** | Group name in English |
+| **Name (Gujarati)** | Group name in Gujarati |
+| **Description** | Group description |
+| **Members** | Count of owners in this group |
+| **Status** | Active/Inactive badge |
+| **Actions** | Edit (pencil), Deactivate (ban) |
+
+## Member Expansion
+
+Clicking the expand chevron loads and displays group members in a card grid:
+
+| Field | Description |
+| --- | --- |
+| Full Name | Owner's display name |
+| Email | Owner's email |
+| Phone | Owner's phone |
+| Active Orgs | Count of active organizations |
+
+Shows "No members in this group" when empty.
+
+## Add / Edit Group Dialog
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Group Name | Yes | APMC market name |
+| Name (Gujarati) | No | Gujarati name |
+| Description | No | Description of the market |
+
+## Deactivation
+
+- **Deactivate** shows a confirmation dialog warning about:
+  - Number of members affected
+  - Loss of shared agent pool access
+- Deactivated groups appear in a **"Show Inactive"** toggle section
+- Each inactive group has a **Reactivate** button (green check icon)
+
+<Callout title="Cross-Org Security" type="info">
+  The agent pool uses a SECURITY DEFINER function (`get_apmc_group_commission_agents`) that bypasses RLS to fetch agents across organizations. The frontend receives agent data directly and never re-fetches by ID.
+</Callout>

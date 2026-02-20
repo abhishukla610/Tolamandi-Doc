@@ -1,0 +1,70 @@
+---
+title: Dashboard
+description: Daily business overview with stats, produce breakdown, and real-time updates
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Owner Dashboard
+
+**Route:** `/dashboard`
+
+The dashboard provides a real-time overview of today's trading activity. Data updates automatically when new transactions are recorded by operators.
+
+![Owner Dashboard](/screenshots/app-owner-dashboard.png)
+
+## Summary Stat Cards
+
+Four cards displayed at the top:
+
+| Card | Icon | Color | Description |
+| --- | --- | --- | --- |
+| **Total Bags** | ShoppingBag | Blue | Sum of all bags weighed today |
+| **Total Weight** | Weight | Green | Total net weight in kilograms |
+| **Total Amount** | IndianRupee | Amber | Total transaction value in ₹ |
+| **Total Transactions** | FileText | Purple | Number of weighing entries today |
+
+## Filters
+
+Two dropdown filters to narrow the data:
+
+| Filter | Description |
+| --- | --- |
+| **Produce** | Select a specific produce type to filter all stats and tables |
+| **Grade** | Select a quality grade (available grades depend on selected produce) |
+| **Clear Filters** | Button to reset both filters |
+
+When filters are applied, all stat cards and tables update to show only matching transactions.
+
+## Top 2 Produces Widget
+
+Shows the top 2 produce types by lot count for today:
+
+For each produce:
+- Produce name
+- Number of lots
+- Grade-wise breakdown with average rate per 20kg
+- Visual indicator of top performer
+
+## Produce Summary Table
+
+A scrollable table with today's complete breakdown:
+
+| Column | Description |
+| --- | --- |
+| **Produce** | Name + Gujarati name |
+| **Grade** | Quality grade |
+| **Bags** | Total bag count |
+| **Weight** | Total net weight (kg) |
+| **Avg Rate** | Average rate per 20kg |
+| **Amount** | Total value (₹) |
+
+**Empty state:** When no transactions exist for the day, shows a message encouraging operators to start recording.
+
+<Callout title="Real-Time Updates" type="info">
+  The dashboard subscribes to Supabase Realtime via `subscribeToTransactions()`. When an operator records a new weighment, the dashboard stats update within seconds without manual refresh.
+</Callout>
+
+## Data Source
+
+All data comes from the `useTodayProduceSummary()` hook which queries today's transactions for the currently selected organization, then computes aggregates locally for instant filter response.

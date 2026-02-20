@@ -1,0 +1,62 @@
+---
+title: Row-Level Security
+description: Multi-tenant data isolation through Supabase RLS policies
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Row-Level Security (RLS)
+
+Every table in TolaMandi has **Row-Level Security** policies that enforce multi-tenant data isolation at the database level. This means even if application code has a bug, users cannot access data from other organizations.
+
+## How RLS Works
+
+All RLS policies follow this pattern:
+
+```sql
+-- Example: transactions table
+CREATE POLICY "Users can only see their org's transactions"
+  ON transactions
+  FOR SELECT
+  USING (organization_id = (
+    SELECT organization_id FROM users WHERE id = auth.uid()
+  ));
+```
+
+## Key RLS Patterns
+
+| Pattern | Description |
+| --- | --- |
+| **Org-scoped reads** | `SELECT` filtered by `organization_id` matching the user's org |
+| **Org-scoped writes** | `INSERT/UPDATE/DELETE` restricted to user's own org |
+| **Owner escalation** | Owners can access data across all their organizations |
+| **Super admin bypass** | SECURITY DEFINER functions bypass RLS for platform-wide operations |
+| **Inactive operator block** | Deactivated operators cannot query any data |
+
+## SECURITY DEFINER Functions
+
+For operations that need cross-org access (e.g., APMC group agent pools), the platform uses PostgreSQL SECURITY DEFINER functions:
+
+| Function | Purpose |
+| --- | --- |
+| `get_apmc_group_commission_agents` | Fetch agents from all orgs in the same APMC group |
+| `create_organization_with_owner` | Create org + owner in a single transaction |
+| `can_create_organization` | Check subscription limits across all user orgs |
+| `toggle_organization_status` | Suspend/activate with cascade to team members |
+
+<Callout title="Search Path Security" type="error">
+  **All** SECURITY DEFINER functions include `SET search_path = 'public'` (or `'public', 'extensions'`). Without this, the function is vulnerable to schema hijack attacks where a malicious user creates objects in a different schema that shadows public objects.
+</Callout>
+
+## Cross-Org Data Access Pattern
+
+When the frontend needs data from other organizations (e.g., APMC pool agents):
+
+1. A SECURITY DEFINER RPC fetches the cross-org data
+2. The data is passed directly to UI components
+3. Service functions **never re-fetch by ID** — RLS would block it
+4. The "Take Agent" feature accepts agent **data** (not agent ID) to copy
+
+<Callout title="RLS Cross-Org Rule" type="warn">
+  When a SECURITY DEFINER RPC provides cross-org data to the frontend, do NOT re-fetch by ID in service functions. RLS will block it. Pass the data from the UI instead.
+</Callout>

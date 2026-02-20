@@ -1,0 +1,117 @@
+---
+title: Authentication System
+description: User authentication flows for admins and operators
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Authentication System
+
+TolaMandi uses **Supabase Auth (GoTrue)** with two distinct authentication flows: email/password for admins and a PIN-based system for field operators.
+
+![Login Page](/screenshots/app-login.png)
+
+## Authentication Flows
+
+<Tabs items={['Admin Login', 'Operator Login']}>
+  <Tab value="Admin Login">
+    Standard email/password authentication for **Super Admin**, **Owner**, and **Buyer Admin** roles.
+
+    <Steps>
+      <Step>
+        ### User enters credentials
+        Email and password on the `/login` page.
+      </Step>
+      <Step>
+        ### Supabase Auth validates
+        `signInWithPassword()` checks against `auth.users` table.
+      </Step>
+      <Step>
+        ### Role detection
+        After auth, the application queries the `users` table to determine role.
+      </Step>
+      <Step>
+        ### Role-based redirect
+        - `superadmin` → `/superadmin/dashboard`
+        - `owner` / `buyer_admin` → `/dashboard`
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Operator Login">
+    Operators authenticate with **phone number + 4-digit PIN**. Under the hood, this uses email-based Supabase auth with a constructed email address.
+
+    <Steps>
+      <Step>
+        ### Operator enters phone + PIN
+        Mobile-optimized login screen at `/login`.
+      </Step>
+      <Step>
+        ### Email construction
+        The system constructs an email: `{phone}@operator.tolamandi.local`
+
+        Example: `9876543210@operator.tolamandi.local`
+      </Step>
+      <Step>
+        ### Password padding
+        The 4-digit PIN is padded: `PIN_{pin}_SECURE`
+
+        Example: PIN `1234` becomes `PIN_1234_SECURE`
+      </Step>
+      <Step>
+        ### Supabase Auth validates
+        `signInWithPassword()` with the constructed credentials.
+      </Step>
+      <Step>
+        ### Redirect to mobile
+        Operator is redirected to `/mobile/dashboard`.
+      </Step>
+    </Steps>
+
+    <Callout title="Security Note" type="warn">
+      Operator PIN resets must always go through Supabase Auth API (`updateUser`). Never use raw SQL to modify `auth.users` passwords directly.
+    </Callout>
+  </Tab>
+</Tabs>
+
+## Auth Context
+
+The `AuthProvider` (`contexts/auth-context.tsx`) manages global authentication state:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `user` | User | Current authenticated user |
+| `isLoading` | boolean | Auth state loading |
+| `isSuperAdmin` | boolean | Super admin role check |
+| `isOwner` | boolean | Owner role check |
+| `isAdmin` | boolean | Owner or buyer_admin |
+| `isOperator` | boolean | Operator role check |
+| `effectiveOrgId` | string | Currently active organization |
+| `organizations` | array | All user organizations |
+| `switchOrganization()` | function | Change active org |
+| `signOut()` | function | Log out |
+
+## Route Protection
+
+All routes are protected by the `AuthGuard` component:
+
+```tsx
+// Dashboard layout — requires admin role
+<AuthGuard requireAdmin>
+  <DashboardLayout>{children}</DashboardLayout>
+</AuthGuard>
+
+// Superadmin layout — requires superadmin role
+<AuthGuard requireSuperAdmin>
+  <SuperAdminLayout>{children}</SuperAdminLayout>
+</AuthGuard>
+```
+
+## Organization Switching
+
+Owners with multiple organizations can switch context via the **Org Switcher** dropdown in the header. When switching:
+
+1. `effectiveOrgId` is updated in auth context
+2. All data queries re-fetch for the new organization
+3. If the current org is suspended, auto-switch to the first active org with a toast notification

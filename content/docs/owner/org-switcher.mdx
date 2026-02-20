@@ -1,0 +1,47 @@
+---
+title: Organization Switcher
+description: Switch between multiple organizations from the header dropdown
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Organization Switcher
+
+The Organization Switcher is a dropdown in the top header bar that allows owners to switch between their organizations. It appears **only for users with the Owner role**.
+
+## How It Works
+
+<Steps>
+  <Step>
+    ### Click the org switcher in the header
+    Shows the current organization name with a dropdown arrow.
+  </Step>
+  <Step>
+    ### Browse or search organizations
+    A command palette dropdown appears with:
+    - Search input to filter by org name
+    - List of all your organizations
+    - Current org marked with a checkmark
+    - Suspended orgs shown with a ban icon, strikethrough text, and "Suspended" badge
+  </Step>
+  <Step>
+    ### Select an organization
+    Clicking an org switches your context. All dashboard data, transactions, agents, and operators update to show data from the selected organization.
+  </Step>
+  <Step>
+    ### Create new organization (optional)
+    A "Create Organization" button at the bottom opens a dialog to add a new organization. This is disabled if you have reached your subscription plan's organization limit.
+  </Step>
+</Steps>
+
+## Suspended Organization Handling
+
+- Suspended organizations are **visually marked** with strikethrough text and a ban icon
+- If you are on a suspended organization, the system **auto-switches** to your first active organization
+- A toast notification alerts you about the automatic switch
+- You cannot manually switch to a suspended organization
+
+<Callout title="Subscription Limits" type="warn">
+  The "Create Organization" button is disabled when your active organization count equals your plan's `max_organizations` limit. A tooltip explains why creation is blocked.
+</Callout>

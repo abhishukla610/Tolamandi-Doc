@@ -1,0 +1,50 @@
+---
+title: Owner Guide Overview
+description: Complete guide for organization owners operating on the TolaMandi platform
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Organization Owner Guide
+
+As an **Organization Owner**, you have full control over your market yard operations. You can manage multiple organizations, commission agents, operators, transactions, and billing — all from a unified dashboard.
+
+<Callout title="Login" type="info">
+  Owners log in at `/login` with email and password. After authentication, you are redirected to `/dashboard`.
+</Callout>
+
+## Navigation
+
+The owner dashboard has a sidebar with **7 sections** (some restricted by role):
+
+<Cards>
+  <Card title="Dashboard" href="/docs/owner/dashboard" description="Today's trading summary — stats, produce breakdown, top performers, filters" />
+  <Card title="Transactions" href="/docs/owner/transactions" description="All weighing records with search, filters, sorting, editing, and CSV export" />
+  <Card title="Commission Agents" href="/docs/owner/commission-agents" description="Agent registry with auto-codes, taluka suggestions, and APMC group pool" />
+  <Card title="Operators" href="/docs/owner/operators" description="Field staff management — create, edit, reset PINs, activate/deactivate" />
+  <Card title="Organization Settings" href="/docs/owner/organization-settings" description="Edit organization profile, receipt header/footer, produce types, quality grades" />
+  <Card title="Billing" href="/docs/owner/billing" description="Subscription plan details, usage metrics, add-ons, and plan comparison" />
+  <Card title="User Settings" href="/docs/owner/user-settings" description="Personal profile, language toggle, notification preferences" />
+</Cards>
+
+## Quick Reference
+
+| Feature | Access Level |
+| --- | --- |
+| Dashboard | All roles |
+| Transactions | All roles |
+| Masters (Commission Agents) | All roles |
+| Operators | Owner and Buyer Admin only |
+| Organization Settings | Owner only |
+| Billing | Owner only |
+| Settings | All roles |
+| Org Switcher | Owner only (in header) |
+
+## Multi-Organization Support
+
+Owners can manage **multiple organizations** (market yards) from a single account:
+- Use the **Org Switcher** dropdown in the header to switch context
+- All data (transactions, agents, operators) filters based on the selected organization
+- Create new organizations via the Org Switcher (subject to subscription limits)
+- Suspended organizations are visually marked and cannot be accessed

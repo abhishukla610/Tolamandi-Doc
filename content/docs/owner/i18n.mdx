@@ -1,0 +1,48 @@
+---
+title: Language Support
+description: Bilingual interface — English and Gujarati with instant switching
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Language Support (i18n)
+
+TolaMandi supports **two languages**: English and Gujarati. The entire interface — every label, button, message, and placeholder — is translated.
+
+## Switching Languages
+
+The **language toggle** is available in:
+- The header bar (for owners and admins)
+- The settings page
+- The mobile operator interface
+
+Clicking the toggle instantly switches the entire application. The preference is saved and applies on your next login.
+
+## Supported Languages
+
+| Language | Code | Script |
+| --- | --- | --- |
+| English | `en` | Latin |
+| Gujarati | `gu` | Gujarati script |
+
+## Translation Coverage
+
+The application uses **9 translation namespaces** covering every part of the interface:
+
+| Namespace | Scope | Example Keys |
+| --- | --- | --- |
+| `common` | Shared UI elements | form.save, form.cancel, status.active |
+| `dashboard` | Dashboard page | stats.totalBags, filters.produce |
+| `nav` | Navigation | sidebar.dashboard, sidebar.transactions |
+| `transactions` | Transactions page | table.receiptNumber, export.csv |
+| `settings` | Settings pages | profile.fullName, receipt.header |
+| `operators` | Operators page | dialog.createTitle, table.phone |
+| `masters` | Commission agents | dialog.code, pool.takeButton |
+| `auth` | Login page | login.title, login.email |
+| `mobile` | Mobile operator | wizard.step1, dashboard.today |
+
+**Total:** 18 translation files (9 namespaces x 2 languages)
+
+<Callout title="Cross-Namespace Access" type="info">
+  Components can access keys from other namespaces using the prefix syntax: `t('common:form.email')`. This avoids duplicating shared strings like form labels.
+</Callout>

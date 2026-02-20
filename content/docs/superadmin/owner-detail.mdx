@@ -1,0 +1,147 @@
+---
+title: Owner Detail
+description: Comprehensive owner management — profile, organizations, operators, agents, activity, subscriptions
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+# Owner Detail Page
+
+**Route:** `/superadmin/organizations/owner/[userId]`
+
+This is the most comprehensive page in the super admin interface. It provides complete management capabilities for a single organization owner including their profile, all organizations, operators, commission agents, subscription, and activity history.
+
+![Owner Detail Page](/screenshots/app-owner-detail.png)
+
+## Page Layout
+
+The page is divided into two main sections:
+
+### Top Section: Profile & Subscription (2-column)
+
+<Tabs items={['Profile Card (Left)', 'Subscription Card (Right)']}>
+  <Tab value="Profile Card (Left)">
+    **View Mode:**
+    - Avatar with initials
+    - Full name with Active/Inactive badge
+    - Email and Phone with icons
+    - Action buttons: Edit, Reset Password, Deactivate/Activate
+    - Stats: Joined date, Last Login, Organization count
+    - APMC Group dropdown (assign/change group)
+
+    **Edit Mode:**
+    - Inline form: Name, Email, Phone fields
+    - Save and Cancel buttons
+  </Tab>
+  <Tab value="Subscription Card (Right)">
+    - Plan dropdown (change plan instantly)
+    - Plan pricing display
+    - Usage stats grid:
+      - Organizations: active count / max
+      - Users: total across all orgs
+      - Operators: total / effective limit
+      - Transactions: monthly count
+    - Operator Add-on section
+    - "Manage Add-ons" button
+  </Tab>
+</Tabs>
+
+### Dialogs Available from Profile
+
+| Dialog | Purpose |
+| --- | --- |
+| **Reset Password** | Generate temporary password with copy button. Shows user info for verification. |
+| **Operator Add-on** | Set number of extra operator slots. Shows cost: ₹200/operator/month. Calculates total: base plan + add-on = effective limit. Setting to 0 deactivates the add-on. |
+
+---
+
+## Main Tabs Section
+
+### Tab 1: Overview
+
+Displays all organizations owned by this user in a **card grid** (2 columns):
+
+Each organization card shows:
+- Organization name with Building icon
+- Active/Suspended badge
+- Edit button (pencil icon)
+- Stats: Operator count, Agent count
+
+**"Create Organization" button** — disabled if at subscription limit with a tooltip explaining why.
+
+---
+
+### Dynamic Organization Tabs (Tab 2–N)
+
+One tab per organization. Each org tab has **3 sub-tabs**:
+
+<Tabs items={['Overview', 'Operators', 'Commission Agents']}>
+  <Tab value="Overview">
+    **View Mode:** All organization details displayed — name (EN + GU), email, phone, address, GSTIN, status, creation date.
+
+    **Edit Mode:** Inline form for all fields with Save/Cancel.
+
+    **Actions:**
+    - **Edit** — Toggle edit mode
+    - **Suspend** — Opens confirmation dialog showing:
+      - Number of team members that will be deactivated
+      - Number of operators that will be deactivated
+      - Warning about impact
+    - **Activate** — Checks subscription org limit before allowing reactivation
+  </Tab>
+  <Tab value="Operators">
+    Table of all operators in this organization:
+
+    | Column | Description |
+    | --- | --- |
+    | Name | Operator full name |
+    | Phone | Contact number |
+    | Status | Active/Inactive/Suspended badge |
+    | Last Login | Relative time |
+    | Actions | Dropdown: Edit, Reset PIN, Deactivate/Reactivate |
+
+    **"Add Operator" button** opens the OperatorDialog (Name, Phone, 4-digit PIN).
+
+    **Reset PIN Dialog** — Enter new 4-digit PIN with confirmation.
+  </Tab>
+  <Tab value="Commission Agents">
+    Table of all commission agents in this organization:
+
+    | Column | Description |
+    | --- | --- |
+    | Code | Auto-generated (SA001, SA002...) |
+    | Name | Agent full name |
+    | Taluka | Market area region |
+    | Phone | Contact number |
+    | GST Number | Tax registration |
+    | Actions | Dropdown: Edit, Delete (deactivate) |
+
+    **"Add Agent" button** opens the CommissionAgentDialog with auto-generated code.
+  </Tab>
+</Tabs>
+
+---
+
+### Last Tab: Activity
+
+Audit logs for this owner showing all their actions:
+
+| Column | Description |
+| --- | --- |
+| Timestamp | When the action occurred |
+| Action | CREATE / UPDATE / DELETE / LOGIN / LOGOUT |
+| Resource | What was affected |
+| Organization | Which org was involved |
+| Description | Human-readable description |
+
+**Filters:** Action dropdown, Search input, Sort toggle (Oldest/Newest).
+
+<Callout title="Org Suspension Cascade" type="warn">
+  Suspending an organization automatically deactivates all team members and operators within that organization. This is a cascading operation that cannot be partially applied.
+</Callout>
+
+<Callout title="Subscription Limit Enforcement" type="info">
+  Creating or activating an organization checks the owner's subscription limit. If the active org count equals `max_organizations`, the Create button is disabled and Activate shows a limit warning. The check runs at both frontend and backend (RPC `can_create_organization`).
+</Callout>

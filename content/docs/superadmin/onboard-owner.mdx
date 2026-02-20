@@ -1,0 +1,66 @@
+---
+title: Onboard New Owner
+description: Registration form for creating new business owners with their first organization
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Onboard New Owner
+
+**Route:** `/superadmin/organizations/new`
+
+This form creates a new owner account along with their first organization in a single operation.
+
+![Onboard Owner](/screenshots/app-onboard-owner.png)
+
+## Form Sections
+
+<Steps>
+  <Step>
+    ### Organization Details
+
+    | Field | Required | Description |
+    | --- | --- | --- |
+    | Organization Name | Yes | Business name in English |
+    | Organization Name (Gujarati) | No | Business name in Gujarati |
+    | Email | No | Organization contact email |
+    | Phone | No | Organization contact phone |
+    | Address | No | Physical address (textarea) |
+    | GSTIN | No | GST registration number |
+    | Subscription Plan | Yes | Select from active plans (defaults to Basic) |
+    | APMC Group | No | Optional market group assignment (shown only if groups exist) |
+  </Step>
+  <Step>
+    ### Owner Account
+
+    | Field | Required | Validation |
+    | --- | --- | --- |
+    | Full Name | Yes | Cannot be empty |
+    | Email | Yes | Valid email format |
+    | Password | Yes | Minimum 6 characters |
+    | Confirm Password | Yes | Must match password |
+  </Step>
+  <Step>
+    ### Submit & Create
+    The form calls the `create_organization_with_owner` RPC which:
+    1. Creates a `auth.users` entry with email/password
+    2. Creates a `users` record with `role = 'owner'`
+    3. Creates an `organizations` record linked to the owner
+    4. Creates a `user_subscriptions` record with the selected plan
+    5. Optionally assigns the APMC group
+
+    On success, redirects to User Management page.
+  </Step>
+</Steps>
+
+<Callout title="Plan Selection" type="info">
+  The plan dropdown shows all active subscription plans. The default selection is `basic` (Quarterly plan). The selected plan determines all limits for the new owner.
+</Callout>
+
+## Validation Rules
+
+- Organization name is the only required organization field
+- Owner email must be unique across the platform
+- Password must be at least 6 characters
+- All validation errors are shown inline below the respective field

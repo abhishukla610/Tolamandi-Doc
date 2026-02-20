@@ -1,0 +1,112 @@
+---
+title: Development Environment
+description: Local development setup, testing, and tooling
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Development Environment
+
+## Prerequisites
+
+| Tool | Version | Purpose |
+| --- | --- | --- |
+| Node.js | 22+ | JavaScript runtime |
+| npm / pnpm | Latest | Package manager |
+| Git | Latest | Version control |
+
+## Local Setup
+
+<Steps>
+  <Step>
+    ### Clone the repository
+    ```bash
+    git clone https://github.com/Abhiigg/tolamandi-app.git
+    cd tolamandi-app
+    ```
+  </Step>
+  <Step>
+    ### Install dependencies
+    ```bash
+    npm install
+    ```
+  </Step>
+  <Step>
+    ### Configure environment
+    Create `.env.local` with Supabase credentials:
+    ```
+    NEXT_PUBLIC_SUPABASE_URL=https://czjrrypzshezcosigaxe.supabase.co
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
+    ```
+  </Step>
+  <Step>
+    ### Start development server
+    ```bash
+    npm run dev
+    ```
+    Opens at `http://localhost:3000` with Turbopack for fast refresh.
+  </Step>
+</Steps>
+
+## Testing
+
+<Tabs items={['Unit Tests', 'E2E Tests']}>
+  <Tab value="Unit Tests">
+    **92 unit tests** using Vitest across 3 test suites:
+
+    | Suite | Tests | Location |
+    | --- | --- | --- |
+    | Subscription Add-ons | 14 | `tests/unit/services/subscription-add-ons.test.ts` |
+    | Dashboard Computations | 28 | `tests/unit/dashboard/dashboard-computations.test.ts` |
+    | Taluka Features | 25 | `tests/unit/commission-agents/taluka-features.test.ts` |
+
+    ```bash
+    npm run test        # Run all tests
+    npm run test:watch  # Watch mode
+    ```
+
+    **Mocking pattern:** Supabase client is mocked with a chainable query builder pattern where each method returns `this` and terminal methods return `{ data, error }`.
+  </Tab>
+  <Tab value="E2E Tests">
+    **Playwright** tests cover critical user flows:
+
+    - Login flows (admin and operator)
+    - Organization limit enforcement
+    - Operator management (create, deactivate, reactivate)
+    - Commission agent phone uniqueness
+    - Dialog error handling
+    - Suspended organization handling
+
+    ```bash
+    npx playwright test              # Run all E2E tests
+    npx playwright test --ui         # Interactive mode
+    npx playwright show-report       # View test report
+    ```
+  </Tab>
+</Tabs>
+
+## Project Structure
+
+```
+tolamandi-app/
+├── app/
+│   ├── (auth)/          # Login page
+│   ├── (dashboard)/     # Owner/Admin pages
+│   ├── (mobile)/        # Operator mobile pages
+│   └── (superadmin)/    # Platform admin pages
+├── components/          # Feature-organized React components
+├── contexts/            # Auth, Platform, i18n providers
+├── lib/
+│   ├── supabase/        # Client, services, hooks
+│   ├── i18n/            # i18next configuration
+│   └── utils/           # Formatting, export utilities
+├── public/
+│   └── locales/         # en/ and gu/ translation files
+├── types/               # TypeScript type definitions
+├── tests/
+│   ├── unit/            # Vitest unit tests
+│   └── e2e/             # Playwright E2E tests
+└── supabase/
+    └── migrations/      # Database migration SQL files
+```

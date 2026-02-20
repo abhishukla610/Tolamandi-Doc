@@ -1,0 +1,48 @@
+---
+title: Audit Logs
+description: Platform-wide activity log for security monitoring and compliance
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Audit Logs
+
+**Route:** `/superadmin/audit-logs`
+
+The Audit Logs page displays the last **100 activities** across the entire platform. This is the primary tool for security monitoring and operational compliance.
+
+![Audit Logs](/screenshots/app-audit-logs.png)
+
+## Table Columns
+
+| Column | Description |
+| --- | --- |
+| **Timestamp** | When the action occurred (formatted date/time) |
+| **User** | Email of the user who performed the action (or "System" for automated actions) |
+| **Organization** | Which organization was involved |
+| **Action** | Type of action performed |
+| **Resource** | What entity was affected |
+| **Description** | Human-readable description of what happened |
+
+## Action Types & Badges
+
+| Action | Badge Style | Examples |
+| --- | --- | --- |
+| **CREATE** | Blue (default) | New org created, new operator added |
+| **UPDATE** | Gray (secondary) | Profile edited, plan changed |
+| **DELETE** | Red (destructive) | Agent deactivated, operator removed |
+| **LOGIN** | Outlined | User login, operator login |
+| **LOGOUT** | Outlined | User logout |
+
+## Filters
+
+| Filter | Description |
+| --- | --- |
+| **Search** | Search across log message, user email, org name, description, resource type |
+| **Action** | Dropdown: All / CREATE / UPDATE / DELETE / LOGIN / LOGOUT |
+
+The action dropdown is dynamically populated from unique actions found in the logs.
+
+<Callout title="Retention" type="info">
+  The page displays the **last 100** audit entries sorted by most recent first. For extended audit history, database queries should be used directly.
+</Callout>

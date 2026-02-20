@@ -1,0 +1,43 @@
+---
+title: Notifications
+description: Real-time notification bell with unread count and notification panel
+---
+
+# Notifications
+
+The notification system keeps you informed about important events like new transactions, system updates, and billing changes.
+
+## Notification Bell
+
+Located in the top header bar (available to all roles):
+
+| Feature | Description |
+| --- | --- |
+| **Bell Icon** | Always visible in the header |
+| **Unread Badge** | Shows unread count (displays "9+" for more than 9) |
+| **Click Action** | Opens the notification panel popover |
+
+## Notification Panel
+
+A scrollable list that appears when you click the bell:
+
+| Feature | Description |
+| --- | --- |
+| **Notification List** | Recent notifications sorted by newest first |
+| **Type Badge** | Category of notification (transaction, system, billing) |
+| **Timestamp** | When the notification was created |
+| **Mark All Read** | Button to clear all unread indicators |
+| **Empty State** | "No notifications" message when list is empty |
+
+## Real-Time Updates
+
+Notifications use **Supabase Realtime** (WebSocket subscriptions). When a new event occurs:
+
+1. A notification record is created in the `notifications` table
+2. The Realtime subscription delivers it to connected clients
+3. The bell badge updates instantly without page refresh
+4. The notification appears at the top of the panel
+
+## Notification Preferences
+
+Users can toggle notification types in **Settings > Notification Preferences**. Disabled notification types are filtered out before display.

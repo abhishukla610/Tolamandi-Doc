@@ -1,0 +1,71 @@
+---
+title: Subscription Plans
+description: Managing subscription tiers — pricing, limits, features, and plan comparison
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Subscription Plans
+
+**Route:** `/superadmin/subscriptions`
+
+This page manages the subscription plans available on the platform. Each plan defines the limits and features available to organization owners.
+
+![Subscription Plans](/screenshots/app-subscriptions.png)
+
+## Current Plans
+
+| Plan | Code | Billing | Price |
+| --- | --- | --- | --- |
+| **Basic** | `basic` | Quarterly | Entry-level pricing |
+| **Pro** | `pro` | Six Month | Mid-tier pricing |
+| **Enterprise** | `enterprise` | Yearly | Premium pricing |
+
+## Plan Card Display
+
+Each plan is shown as a card with:
+- Plan name and icon
+- Status badge (Active/Inactive)
+- Monthly price
+- Limits: Max Users, Max Operators, Max Transactions/month, Max Commission Agents
+- Features checklist (enabled features with checkmarks, disabled with X)
+- Subscriber count (how many users are on this plan)
+- "Edit Plan" button
+
+## Plan Comparison Table
+
+A side-by-side comparison table showing all plans:
+
+| Feature | Basic | Pro | Enterprise |
+| --- | --- | --- | --- |
+| Max Users per Org | Varies | Varies | Varies |
+| Max Operators per Org | Varies | Varies | Varies |
+| Max Transactions/Month | Varies | Varies | Varies |
+| Max Commission Agents | Varies | Varies | Varies |
+| Monthly Price | Low | Medium | High |
+
+## Edit Plan Dialog
+
+The edit dialog allows modifying all plan properties:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| Plan Name | Text | Display name |
+| Description | Text | Plan description |
+| Monthly Price | Number | Price in ₹ |
+| Yearly Price | Number | Annual price in ₹ |
+| Max Users | Number | Users per org limit (empty = unlimited) |
+| Max Operators | Number | Operators per org limit (empty = unlimited) |
+| Max Transactions | Number | Monthly transaction cap (empty = unlimited) |
+| Max Commission Agents | Number | Agent limit (empty = unlimited) |
+| Max Organizations | Number | Org limit per owner |
+| Is Active | Toggle | Whether plan is available |
+| Features | Dynamic | Add/remove/toggle feature flags |
+
+<Callout title="Operator Add-ons" type="info">
+  Owners can purchase additional operator slots beyond their plan limit at ₹200/operator/month. These add-ons are managed from the Owner Detail page, not from the Subscriptions page.
+</Callout>
+
+<Callout title="Plan Deletion Warning" type="warn">
+  Plans cannot be deleted if users are subscribed to them. Both `user_subscriptions` and legacy `organization_subscriptions` tables reference `subscription_plans`. Migrate all users to another plan before attempting to remove a plan.
+</Callout>

@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "title": "Super Admin",
+  "description": "Platform administration guide",
+  "pages": [
+    "index",
+    "---Navigation---",
+    "dashboard",
+    "user-management",
+    "onboard-owner",
+    "owner-detail",
+    "---Configuration---",
+    "subscriptions",
+    "produce",
+    "apmc-groups",
+    "platform-settings",
+    "audit-logs"
+  ]
+}

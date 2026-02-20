@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "title": "Platform Technical",
+  "description": "Architecture, stack, and infrastructure",
+  "pages": [
+    "index",
+    "---Architecture---",
+    "architecture",
+    "tech-stack",
+    "database",
+    "---Security & Auth---",
+    "authentication",
+    "rls-security",
+    "---Deployment---",
+    "deployment",
+    "environment"
+  ]
+}
