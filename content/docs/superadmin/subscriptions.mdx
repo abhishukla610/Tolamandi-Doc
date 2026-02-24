@@ -11,38 +11,49 @@ import { Callout } from 'fumadocs-ui/components/callout';
 
 This page manages the subscription plans available on the platform. Each plan defines the limits and features available to organization owners.
 
-![Subscription Plans](/screenshots/app-subscriptions.png)
+![Subscription Plans](/screenshots/app-subscription-1.png)
 
 ## Current Plans
 
-| Plan | Code | Billing | Price |
-| --- | --- | --- | --- |
-| **Basic** | `basic` | Quarterly | Entry-level pricing |
-| **Pro** | `pro` | Six Month | Mid-tier pricing |
-| **Enterprise** | `enterprise` | Yearly | Premium pricing |
+| Plan | Billing Cycle | Price |
+| --- | --- | --- |
+| **Quarterly** | Every 3 months | ₹999/month |
+| **Six Month** | Every 6 months | ₹2,499/month |
+| **Yearly** | Annual | ₹4,999/month |
 
 ## Plan Card Display
 
 Each plan is shown as a card with:
 - Plan name and icon
-- Status badge (Active/Inactive)
 - Monthly price
 - Limits: Max Users, Max Operators, Max Transactions/month, Max Commission Agents
 - Features checklist (enabled features with checkmarks, disabled with X)
-- Subscriber count (how many users are on this plan)
+- Users count (how many users are on this plan)
 - "Edit Plan" button
 
 ## Plan Comparison Table
 
 A side-by-side comparison table showing all plans:
 
-| Feature | Basic | Pro | Enterprise |
+| Feature | Quarterly | Six Month | Yearly |
 | --- | --- | --- | --- |
-| Max Users per Org | Varies | Varies | Varies |
-| Max Operators per Org | Varies | Varies | Varies |
-| Max Transactions/Month | Varies | Varies | Varies |
-| Max Commission Agents | Varies | Varies | Varies |
-| Monthly Price | Low | Medium | High |
+| Max Users per Org | 10 | 25 | Unlimited |
+| Max Operators per Org | 5 | 15 | Unlimited |
+| Max Transactions/Month | 2,000 | 10,000 | Unlimited |
+| Max Commission Agents | 200 | 1,000 | Unlimited |
+| Monthly Price | ₹999 | ₹2,499 | ₹4,999 |
+
+### Features per Plan
+
+| Feature | Quarterly | Six Month | Yearly |
+| --- | --- | --- | --- |
+| Reports | ✓ | ✓ | ✓ |
+| Api Access | ✗ | ✓ | ✓ |
+| Export Data | ✓ | ✓ | ✓ |
+| Custom Receipt | ✗ | ✓ | ✓ |
+| Custom Branding | ✗ | ✗ | ✓ |
+| Priority Support | ✗ | ✗ | ✓ |
+| Dedicated Support | ✗ | ✗ | ✓ |
 
 ## Edit Plan Dialog
 
@@ -53,7 +64,6 @@ The edit dialog allows modifying all plan properties:
 | Plan Name | Text | Display name |
 | Description | Text | Plan description |
 | Monthly Price | Number | Price in ₹ |
-| Yearly Price | Number | Annual price in ₹ |
 | Max Users | Number | Users per org limit (empty = unlimited) |
 | Max Operators | Number | Operators per org limit (empty = unlimited) |
 | Max Transactions | Number | Monthly transaction cap (empty = unlimited) |

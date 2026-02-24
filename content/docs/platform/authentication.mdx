@@ -17,7 +17,7 @@ TolaMandi uses **Supabase Auth (GoTrue)** with two distinct authentication flows
 
 <Tabs items={['Admin Login', 'Operator Login']}>
   <Tab value="Admin Login">
-    Standard email/password authentication for **Super Admin**, **Owner**, and **Buyer Admin** roles.
+    Standard email/password authentication for **Super Admin** and **Owner** roles.
 
     <Steps>
       <Step>
@@ -35,7 +35,7 @@ TolaMandi uses **Supabase Auth (GoTrue)** with two distinct authentication flows
       <Step>
         ### Role-based redirect
         - `superadmin` → `/superadmin/dashboard`
-        - `owner` / `buyer_admin` → `/dashboard`
+        - `owner` → `/dashboard`
       </Step>
     </Steps>
   </Tab>
@@ -85,7 +85,7 @@ The `AuthProvider` (`contexts/auth-context.tsx`) manages global authentication s
 | `isLoading` | boolean | Auth state loading |
 | `isSuperAdmin` | boolean | Super admin role check |
 | `isOwner` | boolean | Owner role check |
-| `isAdmin` | boolean | Owner or buyer_admin |
+| `isAdmin` | boolean | Owner role check |
 | `isOperator` | boolean | Operator role check |
 | `effectiveOrgId` | string | Currently active organization |
 | `organizations` | array | All user organizations |
