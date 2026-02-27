@@ -1,0 +1,26 @@
+---
+title: એન્વાયર્નમેન્ટ કન્ફિગરેશન
+description: local, staging, production environment variables અને setup
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Environment Configuration
+
+પ્રોજેક્ટ માટે environment variables યોગ્ય રીતે સેટ કરવી ખૂબ જરૂરી છે.
+
+## સામાન્ય variables
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- server-only secret keys (જો લાગુ પડે)
+
+## ભલામણ
+
+- local માટે `.env.local`
+- production values Vercel dashboardમાં
+- secrets ક્યારેય repositoryમાં commit ન કરો
+
+<Callout title="સુરક્ષા" type="error">
+  `.env` values version controlમાં ન મૂકો અને keys નિયમિત રીતે rotate કરો.
+</Callout>

@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "title": "પ્લેટફોર્મ ટેકનિકલ",
+  "description": "આર્કિટેક્ચર, ટેક સ્ટૅક અને ઇન્ફ્રાસ્ટ્રક્ચર",
+  "pages": [
+    "index",
+    "---આર્કિટેક્ચર---",
+    "architecture",
+    "tech-stack",
+    "database",
+    "---સિક્યોરિટી અને ઑથ---",
+    "authentication",
+    "rls-security",
+    "---ડિપ્લોયમેન્ટ---",
+    "deployment",
+    "environment"
+  ]
+}

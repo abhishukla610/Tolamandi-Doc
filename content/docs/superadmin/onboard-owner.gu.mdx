@@ -1,0 +1,66 @@
+---
+title: નવો ઓનર ઑનબોર્ડ
+description: પ્રથમ સંસ્થા સાથે નવા બિઝનેસ ઓનર બનાવવા માટેનું રજિસ્ટ્રેશન ફોર્મ
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# નવો ઓનર ઑનબોર્ડ
+
+**રૂટ:** `/superadmin/organizations/new`
+
+આ ફોર્મ એક જ ઓપરેશનમાં નવો ઓનર એકાઉન્ટ અને તેની પ્રથમ સંસ્થા બનાવે છે.
+
+![Onboard Owner](/screenshots/app-onboard-owner.png)
+
+## ફોર્મ વિભાગો
+
+<Steps>
+  <Step>
+    ### સંસ્થા વિગતો
+
+    | ફિલ્ડ | જરૂરી | વર્ણન |
+    | --- | --- | --- |
+    | Organization Name | હા | બિઝનેસ નામ (English) |
+    | Organization Name (Gujarati) | ના | બિઝનેસ નામ (Gujarati) |
+    | Email | ના | સંસ્થાનો સંપર્ક ઇમેઇલ |
+    | Phone | ના | સંસ્થાનો સંપર્ક નંબર |
+    | Address | ના | ભૌતિક સરનામું |
+    | GSTIN | ના | GST રજિસ્ટ્રેશન નંબર |
+    | Subscription Plan | હા | Active પ્લાનમાંથી પસંદ કરો |
+    | APMC Group | ના | વૈકલ્પિક માર્કેટ ગ્રૂપ અસાઇનમેન્ટ |
+  </Step>
+  <Step>
+    ### ઓનર એકાઉન્ટ
+
+    | ફિલ્ડ | જરૂરી | વૅલિડેશન |
+    | --- | --- | --- |
+    | Full Name | હા | ખાલી ન હોવું જોઈએ |
+    | Email | હા | માન્ય email format |
+    | Password | હા | ઓછામાં ઓછા 6 અક્ષર |
+    | Confirm Password | હા | Password સાથે મેચ થવું જોઈએ |
+  </Step>
+  <Step>
+    ### Submit & Create
+    ફોર્મ `create_organization_with_owner` RPC કૉલ કરે છે:
+    1. Email/password સાથે `auth.users` એન્ટ્રી બનાવે છે
+    2. `role = 'owner'` સાથે `users` રેકોર્ડ બનાવે છે
+    3. ઓનર સાથે linked `organizations` રેકોર્ડ બનાવે છે
+    4. પસંદ કરેલા પ્લાન સાથે `user_subscriptions` રેકોર્ડ બનાવે છે
+    5. જરૂર હોય તો APMC ગ્રૂપ અસાઇન કરે છે
+
+    સફળતા પછી User Management પેજ પર રીડાયરેક્ટ થાય છે.
+  </Step>
+</Steps>
+
+<Callout title="પ્લાન પસંદગી" type="info">
+  પ્લાન ડ્રોપડાઉનમાં બધા Active subscription plans દેખાય છે. પસંદ કરેલો પ્લાન નવા ઓનર માટેની બધી limits નક્કી કરે છે.
+</Callout>
+
+## વૅલિડેશન નિયમો
+
+- Organization name જરૂરી ફિલ્ડ છે
+- Owner email પ્લેટફોર્મમાં unique હોવી જોઈએ
+- Password ઓછામાં ઓછા 6 અક્ષરનું હોવું જોઈએ
+- તમામ validation errors સંબંધિત ફિલ્ડ નીચે inline દેખાડાય છે

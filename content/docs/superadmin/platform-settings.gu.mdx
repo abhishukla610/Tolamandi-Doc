@@ -1,0 +1,58 @@
+---
+title: પ્લેટફોર્મ સેટિંગ્સ
+description: ગ્લોબલ પ્લેટફોર્મ કન્ફિગરેશન — બ્રાન્ડિંગ, ઇમેઇલ અને સુરક્ષા સેટિંગ્સ
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# પ્લેટફોર્મ સેટિંગ્સ
+
+**રૂટ:** `/superadmin/settings`
+
+આ પેજ ગ્લોબલ પ્લેટફોર્મ સેટિંગ્સ મેનેજ કરે છે. Settings category પ્રમાણે ગોઠવાયેલા છે અને inline edit થાય છે.
+
+![Platform Settings](/screenshots/app-platform-settings.png)
+
+## Setting Categories
+
+| Category | Icon | Description |
+| --- | --- | --- |
+| **General** | Settings | મુખ્ય platform settings |
+| **Email** | Mail | Notification માટે email config |
+| **Branding** | Globe | Visual branding અને customization |
+| **Security** | Shield | Security સંબંધિત configuration |
+
+## Settings Table
+
+| Column | Description |
+| --- | --- |
+| **Key** | Setting identifier |
+| **Value** | હાલની value |
+| **Description** | Settingનો અર્થ |
+| **Visibility** | Public અથવા Private |
+| **Actions** | Edit / Save / Cancel |
+
+## Type-Aware Editing
+
+| Value Type | Input Control |
+| --- | --- |
+| Boolean | Toggle switch |
+| Number | Number input |
+| String | Text input |
+| Object (JSON) | JSON validation સાથે textarea |
+
+**Validation:**
+- JSON values parse/validate થાય છે
+- Number values numeric હોવી જોઈએ
+- Save પછી immediate feedback મળે છે
+
+## Key Settings
+
+| Setting | Category | Description |
+| --- | --- | --- |
+| `platform_name` | General | Sidebar, login, receiptsમાં દેખાતું નામ |
+| `platform_tagline` | General | Login page પર બતાતી tagline |
+
+<Callout title="Platform Branding" type="info">
+  `platform_name` અને `platform_tagline` values `PlatformProvider` context દ્વારા સમગ્ર એપમાં વપરાય છે — login page, sidebar, receipts અને mobile interface સહિત.
+</Callout>

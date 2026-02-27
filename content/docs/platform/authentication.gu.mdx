@@ -1,0 +1,27 @@
+---
+title: ઓથેન્ટિકેશન
+description: Supabase Auth flow, roles અને access control rules
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# ઓથેન્ટિકેશન
+
+TolaMandi Supabase Authનો ઉપયોગ કરે છે અને role-based authorization લાગુ કરે છે.
+
+## Login flow
+
+1. User login credentials submit કરે છે
+2. Supabase session issue કરે છે
+3. User role પ્રમાણે route access મળે છે
+
+## Roles
+
+- super_admin
+- owner
+- buyer_admin
+- operator
+
+<Callout title="Access control" type="info">
+  Role અને organization context બંને આધારે page/API access નિયંત્રિત થાય છે.
+</Callout>

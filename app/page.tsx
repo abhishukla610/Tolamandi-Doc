@@ -19,19 +19,19 @@ export default function HomePage() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/docs/platform"
+            href="/en/docs/platform"
             className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow transition-colors hover:bg-fd-primary/90"
           >
             Get Started
           </Link>
           <Link
-            href="/docs/superadmin"
+            href="/en/docs/superadmin"
             className="inline-flex items-center rounded-lg border border-fd-border px-6 py-3 text-sm font-medium transition-colors hover:bg-fd-accent"
           >
             Super Admin Guide
           </Link>
           <Link
-            href="/docs/owner"
+            href="/en/docs/owner"
             className="inline-flex items-center rounded-lg border border-fd-border px-6 py-3 text-sm font-medium transition-colors hover:bg-fd-accent"
           >
             Owner Guide

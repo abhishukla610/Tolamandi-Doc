@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+.font-gujarati {
+  font-family: 'Noto Sans Gujarati', 'Nirmala UI', 'Shruti', 'Gujarati Sangam MN', sans-serif;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,39 @@
+---
+title: ટ્રાન્ઝેક્શન
+description: વજન એન્ટ્રીઓ, રસીદ, ફિલ્ટર, એક્સપોર્ટ અને સર્ચ
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# ટ્રાન્ઝેક્શન
+
+**રૂટ:** `/transactions`
+
+આ પેજ બધાં વજન ટ્રાન્ઝેક્શન બતાવે છે અને receipt print/export માટે કેન્દ્રિય જગ્યા છે.
+
+![Transactions](/screenshots/app-transactions.png)
+
+## મુખ્ય સુવિધાઓ
+
+- તારીખ પ્રમાણે ફિલ્ટર
+- Produce/Agent આધારિત ફિલ્ટર
+- ઝડપી સર્ચ
+- Receipt view/print
+- CSV/Excel export
+
+## ટેબલ કૉલમ્સ
+
+| કૉલમ | વર્ણન |
+| --- | --- |
+| Receipt No | ટ્રાન્ઝેક્શન રસીદ નંબર |
+| Date/Time | નોંધાયેલ સમય |
+| Produce | વસ્તુનું નામ |
+| Agent | કમિશન એજન્ટ |
+| Weight | નેટ વજન |
+| Rate | પ્રતિ એકમ દર |
+| Amount | કુલ રકમ |
+| Actions | View / Print / Edit |
+
+<Callout title="ડેટા ચોકસાઈ" type="warn">
+  એક્સપોર્ટ પહેલાં યોગ્ય ફિલ્ટર લાગુ છે તેની ખાતરી કરો.
+</Callout>

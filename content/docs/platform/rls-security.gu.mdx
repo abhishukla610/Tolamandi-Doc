@@ -1,0 +1,28 @@
+---
+title: Row-Level Security
+description: Supabase RLS policies દ્વારા multi-tenant data isolation
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Row-Level Security (RLS)
+
+દરેક table પર RLS policies લાગુ છે જેથી user માત્ર પોતાની organizationનો data જ ઍક્સેસ કરી શકે.
+
+## મુખ્ય પેટર્ન
+
+- org-scoped SELECT
+- org-scoped INSERT/UPDATE/DELETE
+- owner માટે controlled escalation
+- super admin માટે SECURITY DEFINER RPC
+
+## SECURITY DEFINER Functions
+
+cross-org operations માટે નીચેના પ્રકારની RPC વપરાય છે:
+- group-based data fetch
+- org status toggles
+- subscription limit checks
+
+<Callout title="Security note" type="error">
+  SECURITY DEFINER functionsમાં સુરક્ષિત `search_path` સેટ કરવો જરૂરી છે.
+</Callout>

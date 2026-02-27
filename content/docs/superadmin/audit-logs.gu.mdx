@@ -1,0 +1,48 @@
+---
+title: ઓડિટ લોગ્સ
+description: સિક્યોરિટી મોનિટરિંગ અને કમ્પ્લાયન્સ માટે પ્લેટફોર્મ-વાઇડ activity log
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# ઓડિટ લોગ્સ
+
+**રૂટ:** `/superadmin/audit-logs`
+
+Audit Logs page સમગ્ર પ્લેટફોર્મની છેલ્લી **100 પ્રવૃત્તિઓ** બતાવે છે.
+
+![Audit Logs](/screenshots/app-audit-logs.png)
+
+## Table Columns
+
+| Column | Description |
+| --- | --- |
+| **Timestamp** | Action ક્યારે થયું |
+| **User** | Action કરનાર userનું email |
+| **Organization** | કઈ organization સંકળાયેલી હતી |
+| **Action** | કરવામાં આવેલ action પ્રકાર |
+| **Resource** | કયા resource પર અસર થઈ |
+| **Description** | શું થયું તેનું વાંચનયોગ્ય વર્ણન |
+
+## Action Types & Badges
+
+| Action | Badge Style | Examples |
+| --- | --- | --- |
+| **CREATE** | Blue | New org, new operator |
+| **UPDATE** | Gray | Profile edited, plan changed |
+| **DELETE** | Red | Agent deactivated |
+| **LOGIN** | Outlined | User/operator login |
+| **LOGOUT** | Outlined | User logout |
+
+## Filters
+
+| Filter | Description |
+| --- | --- |
+| **Search** | log message, user email, org name, descriptionમાં શોધ |
+| **Action** | All / CREATE / UPDATE / DELETE / LOGIN / LOGOUT |
+
+Action dropdown logsમાં ઉપલબ્ધ unique actions પરથી dynamic બને છે.
+
+<Callout title="Retention" type="info">
+  પેજમાં recent-first ક્રમમાં છેલ્લી 100 entries દેખાડાય છે. લાંબી history માટે database query સીધી ચલાવો.
+</Callout>

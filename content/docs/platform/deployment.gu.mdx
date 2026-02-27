@@ -1,0 +1,30 @@
+---
+title: ડિપ્લોયમેન્ટ
+description: build, release અને production rollout પ્રક્રિયા
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# ડિપ્લોયમેન્ટ
+
+TolaMandi web app Vercel પર deploy થાય છે અને code GitHub repositoryમાંથી auto-deploy થાય છે.
+
+<Steps>
+  <Step>
+    main branchમાં ફેરફાર push કરો
+  </Step>
+  <Step>
+    Vercel build શરૂ કરે છે
+  </Step>
+  <Step>
+    Environment variables inject થાય છે
+  </Step>
+  <Step>
+    સફળ build પછી production release થાય છે
+  </Step>
+</Steps>
+
+<Callout title="Release hygiene" type="warn">
+  deploy પહેલાં build અને મુખ્ય critical flows ચકાસવા જરૂરી છે.
+</Callout>

@@ -1,0 +1,29 @@
+---
+title: ડેટાબેઝ
+description: Supabase PostgreSQL schema, tables, relations અને query patterns
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# ડેટાબેઝ
+
+સિસ્ટમ Supabase PostgreSQL પર આધારિત છે.
+
+## મુખ્ય entity groups
+
+- users અને roles
+- organizations
+- transactions
+- commission_agents
+- subscription_plans અને user_subscriptions
+- audit_logs
+
+## મહત્વપૂર્ણ બાબતો
+
+- organization_id આધારિત data partitioning
+- foreign key integrity
+- indexed columns પર query optimization
+
+<Callout title="Data isolation" type="warn">
+  દરેક orgનો ડેટા RLS policiesથી અલગ અને સુરક્ષિત રાખવામાં આવે છે.
+</Callout>

@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "title": "સુપર એડમિન",
+  "description": "પ્લેટફોર્મ એડમિન માર્ગદર્શિકા",
+  "pages": [
+    "index",
+    "---નૅવિગેશન---",
+    "dashboard",
+    "user-management",
+    "onboard-owner",
+    "owner-detail",
+    "---કન્ફિગરેશન---",
+    "subscriptions",
+    "produce",
+    "apmc-groups",
+    "platform-settings",
+    "audit-logs"
+  ]
+}
