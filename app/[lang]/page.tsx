@@ -36,6 +36,12 @@ export default function HomePage() {
           >
             Owner Guide
           </Link>
+          <Link
+            href="/en/docs/operator"
+            className="inline-flex items-center rounded-lg border border-fd-border px-6 py-3 text-sm font-medium transition-colors hover:bg-fd-accent"
+          >
+            Operator Guide
+          </Link>
         </div>
       </div>
     </main>

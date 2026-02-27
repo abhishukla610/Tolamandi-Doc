@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "title": "Operator",
+  "description": "Field operator guide for TolaMandi",
+  "pages": [
+    "index"
+  ]
+}
