@@ -1,0 +1,46 @@
+---
+title: પ્રોડ્યુસ મેનેજમેન્ટ
+description: ગ્લોબલ પ્રોડ્યુસ કેટલોગ મેનેજમેન્ટ — પ્રકાર, આઇકન અને સ્ટેટસ
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# પ્રોડ્યુસ મેનેજમેન્ટ
+
+**રૂટ:** `/superadmin/produce`
+
+આ પેજ કૃષિ પ્રોડ્યુસ પ્રકારોની ગ્લોબલ સૂચિ મેનેજ કરે છે, જે બધી organizations દ્વારા શેર થાય છે.
+
+## Active Produce Table
+
+| Column | Description |
+| --- | --- |
+| **Icon** | Visual માટે emoji icon |
+| **Name** | Produce name (English) |
+| **Name (Gujarati)** | Produce name (Gujarati) |
+| **Status** | Active badge |
+| **Actions** | Edit / Delete |
+
+**Empty state:** પ્રોડ્યુસ ના હોય ત્યારે "Add your first produce type" મેસેજ દેખાય છે.
+
+## Add / Edit Produce Dialog
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Name | Yes | Produce name in English |
+| Name (Gujarati) | Yes | Produce name in Gujarati |
+| Icon | No | Emoji pickerથી પસંદ કરેલ icon |
+
+**Validation:**
+- Duplicate name detection (case-insensitive)
+- English અને Gujarati નામ બંને ફરજિયાત
+
+## Deactivation & Reactivation
+
+- **Delete** = Soft delete (`is_active = false`)
+- Inactive produce items **Inactive Produce** sectionમાં દેખાય છે
+- દરેક inactive item માટે **Reactivate** button ઉપલબ્ધ છે
+
+<Callout title="Shared Catalog" type="info">
+  પ્રોડ્યુસ પ્રકારો platform-wide છે. અહીંનો ફેરફાર તમામ organizationsના transaction formsમાં તરત અસર કરે છે.
+</Callout>

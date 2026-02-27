@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "title": "ઓર્ગેનાઇઝેશન ઓનર",
+  "description": "બિઝનેસ ઓનર માટે ઓપરેશન માર્ગદર્શિકા",
+  "pages": [
+    "index",
+    "---દૈનિક કામગીરી---",
+    "dashboard",
+    "transactions",
+    "---મેનેજમેન્ટ---",
+    "commission-agents",
+    "operators",
+    "---સેટિંગ્સ અને કન્ફિગ---",
+    "organization-settings",
+    "billing",
+    "user-settings",
+    "---ફીચર્સ---",
+    "org-switcher",
+    "notifications",
+    "i18n"
+  ]
+}

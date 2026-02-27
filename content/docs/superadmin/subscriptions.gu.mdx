@@ -1,0 +1,65 @@
+---
+title: સબ્સ્ક્રિપ્શન પ્લાન્સ
+description: સબ્સ્ક્રિપ્શન ટિયર મેનેજમેન્ટ — પ્રાઇસિંગ, limits, features અને comparison
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# સબ્સ્ક્રિપ્શન પ્લાન્સ
+
+**રૂટ:** `/superadmin/subscriptions`
+
+આ પેજ પ્લેટફોર્મ પર ઉપલબ્ધ subscription plans મેનેજ કરે છે. દરેક પ્લાન owner માટેની limits અને features નક્કી કરે છે.
+
+![Subscription Plans](/screenshots/app-subscription-1.png)
+
+## Current Plans
+
+| Plan | Billing Cycle | Price |
+| --- | --- | --- |
+| **Quarterly** | દર 3 મહિને | ₹999/month |
+| **Six Month** | દર 6 મહિને | ₹2,499/month |
+| **Yearly** | વાર્ષિક | ₹4,999/month |
+
+## Plan Card Display
+
+દરેક plan cardમાં:
+- Plan name અને icon
+- Monthly price
+- Limits: Max Users, Max Operators, Max Transactions/month, Max Commission Agents
+- Features checklist
+- Users count
+- Edit Plan button
+
+## Plan Comparison Table
+
+| Feature | Quarterly | Six Month | Yearly |
+| --- | --- | --- | --- |
+| Max Users per Org | 10 | 25 | Unlimited |
+| Max Operators per Org | 5 | 15 | Unlimited |
+| Max Transactions/Month | 2,000 | 10,000 | Unlimited |
+| Max Commission Agents | 200 | 1,000 | Unlimited |
+| Monthly Price | ₹999 | ₹2,499 | ₹4,999 |
+
+## Edit Plan Dialog
+
+| Field | Type | Description |
+| --- | --- | --- |
+| Plan Name | Text | Display name |
+| Description | Text | Plan description |
+| Monthly Price | Number | Price in ₹ |
+| Max Users | Number | Users limit (empty = unlimited) |
+| Max Operators | Number | Operators limit (empty = unlimited) |
+| Max Transactions | Number | Monthly cap (empty = unlimited) |
+| Max Commission Agents | Number | Agent limit (empty = unlimited) |
+| Max Organizations | Number | Org limit per owner |
+| Is Active | Toggle | પ્લાન ઉપલબ્ધ છે કે નહીં |
+| Features | Dynamic | feature flags add/remove/toggle |
+
+<Callout title="Operator Add-ons" type="info">
+  Owner plan limitથી વધારાના operator slots ₹200/operator/month પ્રમાણે ખરીદી શકે છે. આ add-ons Owner Detail pageમાંથી મેનેજ થાય છે.
+</Callout>
+
+<Callout title="Plan Deletion Warning" type="warn">
+  કોઈ plan delete કરતાં પહેલાં તે plan પર subscribed usersને બીજા planમાં migrate કરવું જરૂરી છે.
+</Callout>

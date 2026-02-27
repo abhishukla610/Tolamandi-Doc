@@ -1,0 +1,74 @@
+---
+title: APMC ગ્રૂપ્સ
+description: cross-organization agent sharing માટે market group management
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# APMC ગ્રૂપ્સ
+
+**રૂટ:** `/superadmin/apmc-groups`
+
+APMC (Agricultural Produce Market Committee) Groups એ જ માર્કેટમાં કાર્યરત ownersને commission agents માહિતી શેર કરવાની સગવડ આપે છે.
+
+## APMC Groups કેવી રીતે કામ કરે છે
+
+<Steps>
+  <Step>
+    ### Super Admin ગ્રૂપ બનાવે છે
+    ફિઝિકલ APMC માર્કેટ માટે નામવાળો ગ્રૂપ બનાવે છે (જેમ કે Rajkot APMC).
+  </Step>
+  <Step>
+    ### Ownersને ગ્રૂપમાં assign થાય છે
+    Owner Detail page પરથી સંબંધિત APMC group assign થાય છે.
+  </Step>
+  <Step>
+    ### Shared agent pool ઉપલબ્ધ બને છે
+    એ જ groupના owners બીજા સભ્યોના agents જોઈ શકે છે.
+  </Step>
+  <Step>
+    ### Owners poolમાંથી agent "Take" કરે છે
+    "Take" button agent details ownerની organizationમાં નવા agent તરીકે copy કરે છે.
+  </Step>
+</Steps>
+
+## Groups Table
+
+| Column | Description |
+| --- | --- |
+| **Expand** | Member list expand/collapse |
+| **Name** | Group name (English) |
+| **Name (Gujarati)** | Group name (Gujarati) |
+| **Description** | Group description |
+| **Members** | Groupમાં ownersની સંખ્યા |
+| **Status** | Active/Inactive |
+| **Actions** | Edit, Deactivate |
+
+## Member Expansion
+
+Expand કરવાથી members card gridમાં દેખાય છે:
+- Full Name
+- Email
+- Phone
+- Active Orgs count
+
+ખાલી હોય તો "No members in this group" દેખાય છે.
+
+## Add / Edit Group Dialog
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Group Name | Yes | APMC market name |
+| Name (Gujarati) | No | Gujarati name |
+| Description | No | માર્કેટનું વર્ણન |
+
+## Deactivation
+
+- **Deactivate** સમયે affected members અને shared access અંગે warning dialog બતાવે છે
+- Inactive groups **Show Inactive** વિભાગમાં દેખાય છે
+- Inactive group માટે **Reactivate** button ઉપલબ્ધ છે
+
+<Callout title="Cross-Org Security" type="info">
+  Agent pool માટે SECURITY DEFINER function (`get_apmc_group_commission_agents`) વપરાય છે, જેથી RLS bypass કરીને cross-organization agent data મેળવી શકાય.
+</Callout>

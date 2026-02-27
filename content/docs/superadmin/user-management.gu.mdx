@@ -1,0 +1,48 @@
+---
+title: યુઝર મેનેજમેન્ટ
+description: organization owners મેનેજમેન્ટ — search, filter, activate, deactivate
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# યુઝર મેનેજમેન્ટ
+
+**રૂટ:** `/superadmin/organizations`
+
+આ પેજ પ્લેટફોર્મ પર રજિસ્ટર થયેલા બધા organization owners બતાવે છે.
+
+![User Management](/screenshots/app-user-management.png)
+
+## Page Layout
+
+### Header
+- **Title:** User Management
+- **Action Button:** "Onboard Owner" — નવા owner registration form પર લઈ જાય છે
+
+### Filters
+| Filter | Options | Purpose |
+| --- | --- | --- |
+| **Search** | Text input | Name, email અથવા phoneથી શોધ |
+| **Status** | Active / Inactive / All | Account status પ્રમાણે ફિલ્ટર |
+| **Last Login** | Recent 7d / This Month / Never / All | નિષ્ક્રિય એકાઉન્ટ ઓળખવા |
+
+### Table Columns
+
+| Column | Description |
+| --- | --- |
+| **Name** | Owner નામ અને phone subtitle |
+| **Email** | Login email |
+| **Organizations** | Ownerની બધી orgs યાદી |
+| **Status** | Active/Inactive badge |
+| **Last Login** | Relative સમય |
+| **Actions** | Dropdown menu |
+
+### Actions Dropdown
+| Action | Description |
+| --- | --- |
+| **View Owner** | Owner detail profile પેજ ખોલે |
+| **Activate / Deactivate** | Owner account status બદલાવે |
+
+<Callout title="Deactivation Impact" type="warn">
+  Owner deactivate કરવાથી તેની organizations આપમેળે suspend થતી નથી. Organizations ચાલુ રહે છે, પણ owner લૉગિન કરી શકતો નથી.
+</Callout>

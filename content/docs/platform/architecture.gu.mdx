@@ -1,0 +1,26 @@
+---
+title: આર્કિટેક્ચર
+description: એપ્લિકેશનનો system design, modules અને data flow overview
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# આર્કિટેક્ચર
+
+Krishiv modular architecture અપનાવે છે જેમાં frontend (Next.js), backend (Supabase) અને role-based interfaces સામેલ છે.
+
+## મુખ્ય સ્તરો
+
+- Presentation Layer: App Router આધારિત UI
+- Service Layer: business logic અને API calls
+- Data Layer: PostgreSQL + RLS
+
+## Role-based Modules
+
+- Super Admin module
+- Owner/Admin module
+- Mobile operator module
+
+<Callout title="સ્કેલેબિલિટી" type="info">
+  આ design multi-organization growth અને role isolation માટે optimize કરાયેલ છે.
+</Callout>

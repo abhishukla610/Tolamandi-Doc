@@ -1,0 +1,38 @@
+---
+title: કમિશન એજન્ટ્સ (Masters)
+description: એજન્ટ રજીસ્ટ્રી, auto-code, taluka સૂચનો અને APMC group pool
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# કમિશન એજન્ટ્સ
+
+**રૂટ:** `/masters`
+
+આ પેજમાં એજન્ટ master data મેનેજ થાય છે અને APMC group shared poolમાંથી agent લેવા મળે છે.
+
+![Commission Agents](/screenshots/app-commission-agent-1.png)
+
+## ટેબલ
+
+| કૉલમ | વર્ણન |
+| --- | --- |
+| Code | Auto-generated (SA001...) |
+| Name | એજન્ટ નામ |
+| Taluka | માર્કેટ વિસ્તાર |
+| Actions | Edit, Deactivate/Reactivate |
+
+## Add/Edit Agent
+
+- Code auto-generated રહે છે
+- Name જરૂરી
+- Phone 10 અંક અને active agentsમાં unique
+- Taluka પરથી cross-org suggestions મળે છે
+
+## APMC Pool
+
+APMC group assigned હોય તો shared agents દેખાય છે અને **Take** બટનથી copy કરી શકાય છે.
+
+<Callout title="Cross-org access" type="info">
+  Shared pool માટે SECURITY DEFINER RPC વપરાય છે.
+</Callout>

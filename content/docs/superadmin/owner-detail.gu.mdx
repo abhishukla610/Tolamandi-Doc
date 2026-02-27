@@ -1,0 +1,132 @@
+---
+title: ઓનર ડિટેલ
+description: પ્રોફાઇલ, સંસ્થાઓ, ઓપરેટર્સ, એજન્ટ્સ, પ્રવૃત્તિ અને સબ્સ્ક્રિપ્શનનું સમગ્ર મેનેજમેન્ટ
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# ઓનર ડિટેલ પેજ
+
+**રૂટ:** `/superadmin/organizations/owner/[userId]`
+
+આ સુપર એડમિન ઇન્ટરફેસનું સૌથી વિગતવાર પેજ છે. એક જ ઓનર માટે profile, organizations, operators, commission agents, subscription અને activity history બધું મેનેજ થાય છે.
+
+![Owner Detail Page](/screenshots/app-owner-detail.png)
+
+## પેજ લેઆઉટ
+
+પેજ બે મુખ્ય વિભાગોમાં વહેંચાયેલો છે:
+
+### ટોપ વિભાગ: Profile & Subscription (2-column)
+
+<Tabs items={['Profile Card (Left)', 'Subscription Card (Right)']}>
+  <Tab value="Profile Card (Left)">
+    **View Mode:**
+    - Initials સાથે Avatar
+    - Active/Inactive badge સાથે Full name
+    - Icon સાથે Email અને Phone
+    - Action buttons: Edit, Reset Password, Deactivate/Activate
+    - Stats: Joined date, Last login, Organization count
+    - APMC Group dropdown (assign/change)
+
+    **Edit Mode:**
+    - Inline form: Name, Email, Phone
+    - Save અને Cancel buttons
+  </Tab>
+  <Tab value="Subscription Card (Right)">
+    - Plan dropdown (તાત્કાલિક plan change)
+    - Plan pricing display
+    - Usage stats grid:
+      - Organizations: active count / max
+      - Users: total across orgs
+      - Operators: total / effective limit
+      - Transactions: monthly count
+    - Operator Add-on section
+    - "Manage Add-ons" button
+  </Tab>
+</Tabs>
+
+### Profileમાંથી ઉપલબ્ધ Dialogs
+
+| Dialog | હેતુ |
+| --- | --- |
+| **Reset Password** | Temporary password જનરેટ કરે છે, copy button સાથે |
+| **Operator Add-on** | વધારાના operator slots સેટ કરો, ₹200/operator/month મુજબ ગણતરી |
+
+## મુખ્ય Tabs વિભાગ
+
+### Tab 1: Overview
+
+આ userની બધી organizations **card grid** (2 columns) માં દેખાય છે.
+
+દરેક organization cardમાં:
+- Building icon સાથે Organization name
+- Active/Suspended badge
+- Edit button
+- Stats: Operator count, Agent count
+
+**Create Organization button** subscription limit પહોંચે ત્યારે disabled થાય છે.
+
+### Dynamic Organization Tabs
+
+દરેક organization માટે એક tab, અને દરેક tabમાં 3 sub-tabs:
+
+<Tabs items={['Overview', 'Operators', 'Commission Agents']}>
+  <Tab value="Overview">
+    **View Mode:** Name (EN + GU), email, phone, address, GSTIN, status, creation date.
+
+    **Edit Mode:** Save/Cancel સાથે inline edit form.
+
+    **Actions:**
+    - **Edit** — Edit mode toggle
+    - **Suspend** — Impact warning સાથે confirmation dialog
+    - **Activate** — Reactivation પહેલાં subscription org limit check
+  </Tab>
+  <Tab value="Operators">
+    Organizationના બધા operators માટે table:
+
+    | Column | Description |
+    | --- | --- |
+    | Name | Operator name |
+    | Phone | Contact number |
+    | Status | Active/Inactive/Suspended |
+    | Last Login | Relative time |
+    | Actions | Edit, Reset PIN, Deactivate/Reactivate |
+
+    **Add Operator** button OperatorDialog ખોલે છે.
+  </Tab>
+  <Tab value="Commission Agents">
+    Organizationના બધા commission agents માટે table:
+
+    | Column | Description |
+    | --- | --- |
+    | Code | Auto-generated code |
+    | Name | Agent name |
+    | Taluka | Market region |
+    | Phone | Contact number |
+    | GST Number | Tax registration |
+    | Actions | Edit, Delete (deactivate) |
+
+    **Add Agent** button CommissionAgentDialog ખોલે છે.
+  </Tab>
+</Tabs>
+
+### છેલ્લું Tab: Activity
+
+ઓનરના audit logs નીચે મુજબ દેખાય છે:
+- Timestamp
+- Action (CREATE / UPDATE / DELETE / LOGIN / LOGOUT)
+- Resource
+- Organization
+- Description
+
+Filters: Action dropdown, Search, Sort (Oldest/Newest).
+
+<Callout title="Org Suspension Cascade" type="warn">
+  Organization suspend કરવાથી તે organizationના બધા team members અને operators automatic deactivated થાય છે.
+</Callout>
+
+<Callout title="Subscription Limit Enforcement" type="info">
+  Organization create/activate કરતાં પહેલાં owner's subscription limit ચકાસાય છે. `max_organizations` સુધી પહોંચી જાય તો Create disabled રહે છે અને Activate સમયે limit warning દેખાય છે.
+</Callout>

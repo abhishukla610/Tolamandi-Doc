@@ -1,0 +1,46 @@
+---
+title: સુપર એડમિન ઓવરવ્યૂ
+description: Krishiv સુપર એડમિન માટે પ્લેટફોર્મ એડમિનિસ્ટ્રેશન માર્ગદર્શિકા
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# સુપર એડમિન માર્ગદર્શિકા
+
+<Video src="https://czjrrypzshezcosigaxe.supabase.co/storage/v1/object/public/demo/Super%20admin/super_admin1.mp4" title="સુપર એડમિન ઓવરવ્યૂ" />
+
+**Super Admin** એ પ્લેટફોર્મ એડમિનિસ્ટ્રેટર છે, જેને તમામ સંસ્થાઓ, યુઝર્સ, સબ્સ્ક્રિપ્શન અને પ્લેટફોર્મ કન્ફિગરેશન મેનેજ કરવા માટે પૂર્ણ ઍક્સેસ હોય છે.
+
+<Callout title="ઍક્સેસ" type="info">
+  સુપર એડમિન `/login` પર email અને passwordથી લૉગિન કરે છે. Authentication પછી `/superadmin/dashboard` પર રીડાયરેક્ટ થાય છે.
+</Callout>
+
+## નૅવિગેશન
+
+સુપર એડમિન ઇન્ટરફેસમાં ડાર્ક-થીમ સાઇડબારમાં નીચેના મુખ્ય વિભાગો છે:
+
+<Cards>
+  <Card title="ડેશબોર્ડ" href="/docs/superadmin/dashboard" description="પ્લેટફોર્મ-વાઇડ આંકડા — સંસ્થાઓ, યુઝર્સ, ઓપરેટર્સ, સબ્સ્ક્રિપ્શન વિતરણ" />
+  <Card title="યુઝર મેનેજમેન્ટ" href="/docs/superadmin/user-management" description="બધા ઓનર્સ જુઓ અને મેનેજ કરો — સર્ચ, ફિલ્ટર, એક્ટિવેટ/ડિએક્ટિવેટ" />
+  <Card title="નવો ઓનર ઑનબોર્ડ" href="/docs/superadmin/onboard-owner" description="પ્રથમ સંસ્થા અને સબ્સ્ક્રિપ્શન સાથે નવા બિઝનેસ ઓનરને રજિસ્ટર કરો" />
+  <Card title="ઓનર ડિટેલ" href="/docs/superadmin/owner-detail" description="ઓનરનું સંપૂર્ણ મેનેજમેન્ટ — પ્રોફાઇલ, સંસ્થાઓ, ઓપરેટર્સ, એજન્ટ્સ, પ્રવૃત્તિ, સબ્સ્ક્રિપ્શન" />
+  <Card title="સબ્સ્ક્રિપ્શન પ્લાન્સ" href="/docs/superadmin/subscriptions" description="પ્રાઇસિંગ, લિમિટ્સ અને ફીચર્સ સાથે પ્લાન મેનેજ કરો" />
+  <Card title="પ્રોડ્યુસ" href="/docs/superadmin/produce" description="બધી સંસ્થાઓ માટે ગ્લોબલ પ્રોડ્યુસ કેટલોગ મેનેજ કરો" />
+  <Card title="APMC ગ્રૂપ્સ" href="/docs/superadmin/apmc-groups" description="ક્રોસ-ઓર્ગ એજન્ટ શેરિંગ માટે APMC માર્કેટ ગ્રૂપ્સ મેનેજ કરો" />
+  <Card title="પ્લેટફોર્મ સેટિંગ્સ" href="/docs/superadmin/platform-settings" description="ગ્લોબલ પ્લેટફોર્મ સેટિંગ્સ — બ્રાન્ડિંગ, ઇમેઇલ, સુરક્ષા" />
+  <Card title="ઓડિટ લોગ્સ" href="/docs/superadmin/audit-logs" description="સિક્યોરિટી મોનિટરિંગ અને કમ્પ્લાયન્સ માટે પ્લેટફોર્મ-વાઇડ પ્રવૃત્તિ લોગ" />
+</Cards>
+
+## મુખ્ય ક્ષમતાઓ
+
+| ક્ષમતા | વર્ણન |
+| --- | --- |
+| **સંસ્થા લાઇફસાયકલ** | નવા ઓનર ઑનબોર્ડ, સંસ્થા create/suspend/reactivate |
+| **સબ્સ્ક્રિપ્શન મેનેજમેન્ટ** | પ્લાન એડિટ, ઓપરેટર એડ-ઓન મેનેજ, લિમિટ અમલ |
+| **યુઝર કંટ્રોલ** | ઓનર activate/deactivate, પાસવર્ડ રીસેટ, પ્રવૃત્તિ જુઓ |
+| **પ્લેટફોર્મ કન્ફિગરેશન** | પ્લેટફોર્મ નામ, ટૅગલાઇન, ઇમેઇલ અને સિક્યોરિટી સેટિંગ્સ |
+| **પ્રોડ્યુસ કેટલોગ** | ઇમોજી આઇકન સાથે પ્રોડ્યુસ પ્રકાર add/edit/deactivate |
+| **APMC ગ્રૂપ્સ** | માર્કેટ ગ્રૂપ બનાવો, ઓનર અસાઇન કરો, એજન્ટ શેરિંગ સક્ષમ કરો |
+| **ઓડિટ ટ્રેલ** | છેલ્લી 100 પ્રવૃત્તિઓ સર્ચ/ફિલ્ટર સાથે જુઓ |
+| **ઇમ્પરસોનેશન** | ટ્રબલશૂટિંગ માટે કોઈપણ સંસ્થામાં પ્રવેશ |
