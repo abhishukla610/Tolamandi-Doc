@@ -16,7 +16,7 @@ export default async function Layout(props: {
       nav={{
         title: (
           <span className="font-bold">
-            TolaMandi Docs
+            Krishiv Docs
           </span>
         ),
       }}

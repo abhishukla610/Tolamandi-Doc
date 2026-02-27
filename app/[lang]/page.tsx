@@ -8,7 +8,7 @@ export default function HomePage() {
           Platform Documentation
         </p>
         <h1 className="mb-4 text-5xl font-bold tracking-tight">
-          TolaMandi
+          Krishiv
         </h1>
         <p className="mb-2 text-xl text-fd-muted-foreground">
           APMC Weighing &amp; Trading Management System
